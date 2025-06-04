@@ -990,6 +990,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Camera",
+            "id": "7eddb687-34bd-4019-af70-4f93499ea784",
+            "actions": [
+                {
+                    "name": "CameraDrag",
+                    "type": "Button",
+                    "id": "1316d1bd-9fac-46bb-bf6b-3bc6ce0cc4a4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "mouseDelta",
+                    "type": "Value",
+                    "id": "c24001b1-9cf1-4be1-a561-08b1a9606ef1",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1260e1b0-fcab-444a-9afa-7b44fffefb1b",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "Hold(duration=1.401298E-45,pressPoint=1.401298E-45)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraDrag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "daa8d996-ea77-4dcc-86c0-624f01543931",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "mouseDelta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
