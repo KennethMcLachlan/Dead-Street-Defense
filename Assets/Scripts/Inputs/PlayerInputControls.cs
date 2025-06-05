@@ -4,34 +4,27 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputControls : MonoBehaviour
 {
-    public static InputManager instance;
-    public static InputManager Instance
+    private static PlayerInputControls _instance;
+    public static PlayerInputControls Instance
     {
         get
         {
-            if (instance == null)
+            if (_instance == null)
             {
-                Debug.LogError("Instance is NULL");
+                Debug.LogError("Input Controls is NULL");
             }
-            return instance;
+            return _instance;
         }
     }
 
-    [SerializeField] private InputActionReference _middleClickAction;
-    [SerializeField] private InputActionReference _lookAction;
-
-    [SerializeField] private float _dragSpeed = 0.5f;
-
-    private bool _isDragging;
+    public InputActionReference _middleClickAction;
+    public InputActionReference _lookAction; //Located on the Camera Action Map || Mouse Movement Tracking
+    public InputActionReference _actionButton;
+    public InputActionReference _cancelButton;
 
     private void Awake()
     {
-        if (instance != null && instance != this)
-        {
-            return;
-        }
-        //instance = this;
-
+        _instance = this;
     }
     private void OnEnable()
     {
@@ -45,34 +38,7 @@ public class PlayerInputControls : MonoBehaviour
 
     private void Update()
     {
-        if (!_isDragging)
-            return;
-
-        Vector2 mouseDelta = _lookAction.action.ReadValue<Vector2>();
-        Vector3 move = new Vector3(-mouseDelta.x, -mouseDelta.y, 0) * _dragSpeed;
-        transform.Translate(move, Space.World);
     }
-
-    private void MiddleClickStarted(InputAction.CallbackContext context)
-    {
-        _isDragging = true;
-    }
-
-    private void MiddleClickCanceled(InputAction.CallbackContext context)
-    {
-        _isDragging = false;
-    }
-
-    private void LookActionStarted(InputAction.CallbackContext context)
-    {
-        
-    }
-
-    private void LookActionCanceled(InputAction.CallbackContext context)
-    {
-        
-    }
-
     private void EnableInputActions()
     {
         //Middle Mouse Button
@@ -85,7 +51,17 @@ public class PlayerInputControls : MonoBehaviour
         _lookAction.action.canceled += LookActionCanceled;
         _lookAction.action.Enable();
 
+        //Action Button || Left Click
+        _actionButton.action.started += Action_started;
+        _actionButton.action.canceled += Action_canceled;
+        _actionButton.action.Enable();
+
+        //Cancel Button  ||  Right Click
+        _cancelButton.action.started += Cancel_Started;
+        _cancelButton.action.canceled += Cancel_Canceled;
+        _cancelButton.action.Enable();
     }
+
 
     private void DisableInputActions()
     {
@@ -98,5 +74,49 @@ public class PlayerInputControls : MonoBehaviour
         _lookAction.action.started -= LookActionStarted;
         _lookAction.action.canceled -= LookActionCanceled;
         _lookAction.action.Disable();
+
+        //Action Button || Left Click
+        _actionButton.action.started -= Action_started;
+        _actionButton.action.canceled -= Action_canceled;
+        _actionButton.action.Enable();
+
+        //Cancel Button  ||  Right Click
+        _cancelButton.action.started -= Cancel_Started;
+        _cancelButton.action.canceled -= Cancel_Canceled;
+        _cancelButton.action.Enable();
+    }
+
+    private void MiddleClickStarted(InputAction.CallbackContext context)
+    {
+    }
+
+    private void MiddleClickCanceled(InputAction.CallbackContext context)
+    {
+    }
+
+    private void LookActionStarted(InputAction.CallbackContext context)
+    {
+        
+    }
+
+    private void LookActionCanceled(InputAction.CallbackContext context)
+    {
+        
+    }
+
+    private void Cancel_Canceled(InputAction.CallbackContext obj)
+    {
+    }
+
+    private void Cancel_Started(InputAction.CallbackContext obj)
+    {
+    }
+
+    private void Action_canceled(InputAction.CallbackContext obj)
+    {
+    }
+
+    private void Action_started(InputAction.CallbackContext obj)
+    {
     }
 }
