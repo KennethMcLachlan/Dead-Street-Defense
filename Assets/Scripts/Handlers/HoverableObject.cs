@@ -3,13 +3,13 @@ using UnityEngine.InputSystem;
 
 public class HoverableObject : MonoBehaviour, IHoverable
 {
-    private Camera _mainCamera;
+    [SerializeField] private Camera _mainCamera;
 
     private IHoverable _currentHoverable;
 
     private void Start()
     {
-        _mainCamera = GetComponent<Camera>();
+        //_mainCamera = GetComponent<Camera>();
     }
 
     private void Update()
@@ -22,14 +22,31 @@ public class HoverableObject : MonoBehaviour, IHoverable
 
             if (hoverTarget != _currentHoverable)
             {
-                _currentHoverable?.OnHoverExit();
+                Debug.Log("Mouse is hovering over the hoverable object");
+
+                if (_currentHoverable != null)
+                {
+                    _currentHoverable.OnHoverExit();
+                }
+
+                //_currentHoverable?.OnHoverExit();
                 _currentHoverable = hoverTarget;
-                _currentHoverable?.OnHoverEnter();
+                //_currentHoverable?.OnHoverEnter();
+
+                if (_currentHoverable != null)
+                {
+                    _currentHoverable.OnHoverExit();
+                }
             }
         }
         else
         {
-            _currentHoverable?.OnHoverExit();
+            if (_currentHoverable != null)
+            {
+                _currentHoverable.OnHoverExit();
+            }
+
+            //_currentHoverable?.OnHoverExit();
             _currentHoverable = null;
         }
     }
