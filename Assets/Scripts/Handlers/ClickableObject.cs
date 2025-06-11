@@ -15,6 +15,7 @@ public class ClickableObject : MonoBehaviour, IClickable
     {
         Debug.Log("Just Clicked on " + gameObject.name);
     }
+}
 
    
-}
+
