@@ -22,10 +22,13 @@ public class PlayerInputControls : MonoBehaviour
     public InputActionReference _actionButton;
     public InputActionReference _cancelButton;
 
+    private Draggable _currentDraggable;
+
     private void Awake()
     {
         _instance = this;
     }
+
     private void OnEnable()
     {
         EnableInputActions();
@@ -78,12 +81,12 @@ public class PlayerInputControls : MonoBehaviour
         //Action Button || Left Click
         _actionButton.action.started -= Action_started;
         _actionButton.action.canceled -= Action_canceled;
-        _actionButton.action.Enable();
+        _actionButton.action.Disable();
 
         //Cancel Button  ||  Right Click
         _cancelButton.action.started -= Cancel_Started;
         _cancelButton.action.canceled -= Cancel_Canceled;
-        _cancelButton.action.Enable();
+        _cancelButton.action.Disable();
     }
 
     private void MiddleClickStarted(InputAction.CallbackContext context)
@@ -111,12 +114,32 @@ public class PlayerInputControls : MonoBehaviour
     private void Cancel_Started(InputAction.CallbackContext obj)
     {
     }
+    private void Action_started(InputAction.CallbackContext obj)
+    {
+        Debug.Log("Action_started was called on");
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            Draggable draggable = hit.collider.GetComponent<Draggable>();
+            if (draggable != null)
+            {
+                Debug.Log("Raycast hit: " + hit.collider.name);
+                _currentDraggable = draggable;
+                _currentDraggable.BeginDrag();
+            }
+
+            IClickable clickable = hit.collider.GetComponent<IClickable>();
+            if (clickable != null)
+            {
+                Debug.Log("IClickable was called on " + hit.collider.name);
+                clickable.OnClick();
+            }
+        }
+    }
 
     private void Action_canceled(InputAction.CallbackContext obj)
     {
     }
 
-    private void Action_started(InputAction.CallbackContext obj)
-    {
-    }
 }

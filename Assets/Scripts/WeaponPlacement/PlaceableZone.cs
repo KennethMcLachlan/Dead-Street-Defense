@@ -7,7 +7,7 @@ public class PlaceableZone : MonoBehaviour
     {
         if (other.CompareTag("Weapon"))
         {
-            Renderer renderer = other.GetComponent<Renderer>();
+            Renderer renderer = other.GetComponent<Renderer>(); //May be moved to the object itself
             if (renderer != null)
             {
                 Material mat = renderer.material;

@@ -60,32 +60,29 @@ public class MouseInteractions : MonoBehaviour
 
         PlayerInputControls.Instance._lookAction.action.ReadValue<Vector2>();
 
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            isMouseOverWorld = false;
-            return;
-        }
+            Ray ray = _mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        Ray ray = _mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            mouseWorldPosition = hit.point;
-            isMouseOverWorld = true;
-
-
-            if (PlayerInputControls.Instance._actionButton.action.WasPressedThisFrame())
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                IClickable clickable = hit.collider.GetComponent<IClickable>();
-                if (clickable != null)
+                mouseWorldPosition = hit.point;
+                isMouseOverWorld = true;
+
+
+                if (PlayerInputControls.Instance._actionButton.action.WasPressedThisFrame())
                 {
-                    clickable.OnClick();
+                    IClickable clickable = hit.collider.GetComponent<IClickable>();
+                    if (clickable != null)
+                    {
+                        clickable.OnClick();
+                    }
                 }
             }
-        }
-        else
-        {
-            isMouseOverWorld = false;
+            else
+            {
+                isMouseOverWorld = false;
+            }
         }
     }
 }
