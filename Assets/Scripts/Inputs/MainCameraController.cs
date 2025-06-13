@@ -24,7 +24,6 @@ public class MainCameraController : MonoBehaviour
 
         if (input._middleClickAction.action.WasReleasedThisFrame())
             _isDragging = false;
-        
 
         if (_isDragging)
         {
@@ -41,7 +40,6 @@ public class MainCameraController : MonoBehaviour
             //Clamps the camera to stay within a boundary
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, _xBounds.x, _xBounds.y), _fixedY, Mathf.Clamp(transform.position.z, _zBounds.x, _zBounds.y));
         }
-
     }
 
     private void OnDrawGizmosSelected()

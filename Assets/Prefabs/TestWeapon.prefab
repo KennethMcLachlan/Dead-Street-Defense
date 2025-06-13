@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 1408517907072140278}
   - component: {fileID: 6345141620931571388}
   - component: {fileID: 7947194957502161856}
+  - component: {fileID: 6173508334462183104}
+  - component: {fileID: 7675614261422546143}
   m_Layer: 0
   m_Name: TestWeapon
   m_TagString: Weapon
@@ -163,3 +165,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDragging: 0
+--- !u!114 &6173508334462183104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6305363665223397807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e7217233ba2c442a35c5611b931307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transparencyStrength: 0.4
+--- !u!114 &7675614261422546143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6305363665223397807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 706d507b242f2b545b335c4bf7d18237, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
