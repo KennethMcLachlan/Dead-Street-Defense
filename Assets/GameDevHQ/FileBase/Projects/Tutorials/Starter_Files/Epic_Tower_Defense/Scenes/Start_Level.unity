@@ -42308,6 +42308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e7217233ba2c442a35c5611b931307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _transparencyStrength: 0.4
 --- !u!198 &8358912759255670884
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -52028,7 +52029,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -57592,6 +57593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e7217233ba2c442a35c5611b931307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _transparencyStrength: 0.35
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
