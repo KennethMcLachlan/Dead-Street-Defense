@@ -17,9 +17,10 @@ public class PlayerInputControls : MonoBehaviour
     }
 
     public InputActionReference _middleClickAction;
-    public InputActionReference _lookAction; // Located on the Camera Action Map || Mouse Movement Tracking
+    public InputActionReference _lookAction; // Located on the Camera Action Map | Mouse Movement Tracking
     public InputActionReference _actionButton;
     public InputActionReference _cancelButton;
+    public InputActionReference _scrollWheel;
 
     private Draggable _currentDraggable;
 
@@ -28,6 +29,7 @@ public class PlayerInputControls : MonoBehaviour
         _instance = this;
     }
 
+    #region Enable & Disable Input Action References
     private void OnEnable()
     {
         EnableInputActions();
@@ -59,8 +61,15 @@ public class PlayerInputControls : MonoBehaviour
         _cancelButton.action.started += Cancel_Started;
         _cancelButton.action.canceled += Cancel_Canceled;
         _cancelButton.action.Enable();
+
+        //Scroll Wheel
+        _scrollWheel.action.started += ScrollWheel_Started;
+        _scrollWheel.action.canceled += ScrollWheel_Canceled;
+        _scrollWheel.action.Enable();
+
     }
 
+   
     private void DisableInputActions()
     {
         // Middle Mouse Button
@@ -82,8 +91,15 @@ public class PlayerInputControls : MonoBehaviour
         _cancelButton.action.started -= Cancel_Started;
         _cancelButton.action.canceled -= Cancel_Canceled;
         _cancelButton.action.Disable();
-    }
 
+        //Scroll Wheel
+        _scrollWheel.action.started -= ScrollWheel_Started;
+        _scrollWheel.action.canceled -= ScrollWheel_Canceled;
+        _scrollWheel.action.Disable();
+    }
+    #endregion
+
+    #region Action Started & Canceled
     private void Action_started(InputAction.CallbackContext obj)
     {
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -109,11 +125,11 @@ public class PlayerInputControls : MonoBehaviour
     {
     }
 
-    private void MiddleClickStarted(InputAction.CallbackContext context)
+    private void MiddleClickStarted(InputAction.CallbackContext obj)
     {
     }
 
-    private void MiddleClickCanceled(InputAction.CallbackContext context)
+    private void MiddleClickCanceled(InputAction.CallbackContext obj)
     {
     }
 
@@ -121,7 +137,7 @@ public class PlayerInputControls : MonoBehaviour
     {
     }
 
-    private void LookActionCanceled(InputAction.CallbackContext context)
+    private void LookActionCanceled(InputAction.CallbackContext obj)
     {
     }
 
@@ -132,148 +148,15 @@ public class PlayerInputControls : MonoBehaviour
     private void Cancel_Started(InputAction.CallbackContext obj)
     {
     }
+    private void ScrollWheel_Canceled(InputAction.CallbackContext obj)
+    {
+
+    }
+
+    private void ScrollWheel_Started(InputAction.CallbackContext obj)
+    {
+
+    }
+
+    #endregion
 }
-
-
-//using Unity.VisualScripting;
-//using UnityEngine;
-//using UnityEngine.InputSystem;
-
-//public class PlayerInputControls : MonoBehaviour
-//{
-//    private static PlayerInputControls _instance;
-//    public static PlayerInputControls Instance
-//    {
-//        get
-//        {
-//            if (_instance == null)
-//            {
-//                Debug.LogError("Input Controls is NULL");
-//            }
-//            return _instance;
-//        }
-//    }
-
-//    public InputActionReference _middleClickAction;
-//    public InputActionReference _lookAction; //Located on the Camera Action Map || Mouse Movement Tracking
-//    public InputActionReference _actionButton;
-//    public InputActionReference _cancelButton;
-
-//    private Draggable _currentDraggable;
-
-//    private void Awake()
-//    {
-//        _instance = this;
-//    }
-
-//    private void OnEnable()
-//    {
-//        EnableInputActions();
-//    }
-
-//    private void OnDisable()
-//    {
-//        DisableInputActions();
-//    }
-
-//    private void Update()
-//    {
-//    }
-//    private void EnableInputActions()
-//    {
-//        //Middle Mouse Button
-//        _middleClickAction.action.started += MiddleClickStarted;
-//        _middleClickAction.action.canceled += MiddleClickCanceled;
-//        _middleClickAction.action.Enable();
-
-//        //Mouse Delta / Mouse Movement / Vector 2
-//        _lookAction.action.started += LookActionStarted;
-//        _lookAction.action.canceled += LookActionCanceled;
-//        _lookAction.action.Enable();
-
-//        //Action Button || Left Click
-//        _actionButton.action.started += Action_started;
-//        _actionButton.action.canceled += Action_canceled;
-//        _actionButton.action.Enable();
-
-//        //Cancel Button  ||  Right Click
-//        _cancelButton.action.started += Cancel_Started;
-//        _cancelButton.action.canceled += Cancel_Canceled;
-//        _cancelButton.action.Enable();
-//    }
-
-//    private void DisableInputActions()
-//    {
-//        //Middle Mouse Button
-//        _middleClickAction.action.started -= MiddleClickStarted;
-//        _middleClickAction.action.canceled -= MiddleClickCanceled;
-//        _middleClickAction.action.Disable();
-
-//        //Mouse Delta / Mouse Movement / Vector 2
-//        _lookAction.action.started -= LookActionStarted;
-//        _lookAction.action.canceled -= LookActionCanceled;
-//        _lookAction.action.Disable();
-
-//        //Action Button || Left Click
-//        _actionButton.action.started -= Action_started;
-//        _actionButton.action.canceled -= Action_canceled;
-//        _actionButton.action.Disable();
-
-//        //Cancel Button  ||  Right Click
-//        _cancelButton.action.started -= Cancel_Started;
-//        _cancelButton.action.canceled -= Cancel_Canceled;
-//        _cancelButton.action.Disable();
-//    }
-
-//    private void Action_started(InputAction.CallbackContext obj)
-//    {
-//        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-//        if (Physics.Raycast(ray, out RaycastHit hit))
-//        {
-//            Draggable draggable = hit.collider.GetComponent<Draggable>();
-//            if (draggable != null)
-//            {
-//                _currentDraggable = draggable;
-//                _currentDraggable.BeginDrag();
-//            }
-
-//            IClickable clickable = hit.collider.GetComponent<IClickable>();
-//            if (clickable != null)
-//            {
-//                clickable.OnClick();
-//            }
-//        }
-//    }
-
-//    private void Action_canceled(InputAction.CallbackContext obj)
-//    {
-//    }
-
-//    private void MiddleClickStarted(InputAction.CallbackContext context)
-//    {
-//    }
-
-//    private void MiddleClickCanceled(InputAction.CallbackContext context)
-//    {
-//    }
-
-//    private void LookActionStarted(InputAction.CallbackContext context)
-//    {
-
-//    }
-
-//    private void LookActionCanceled(InputAction.CallbackContext context)
-//    {
-
-//    }
-
-//    private void Cancel_Canceled(InputAction.CallbackContext obj)
-//    {
-//    }
-
-//    private void Cancel_Started(InputAction.CallbackContext obj)
-//    {
-//    }
-
-//}

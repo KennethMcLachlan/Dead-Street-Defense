@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MainCameraController : MonoBehaviour
 {
+    [Header("Camera Boundaries")]
     [SerializeField] private float _movementSpeed = 1.0f;
     private float _fixedY;
 
@@ -10,6 +11,13 @@ public class MainCameraController : MonoBehaviour
 
     private bool _isDragging;
 
+    [Header("Camera Zoom")]
+    [SerializeField] private float _zoomSpeed = 3f;
+    [SerializeField] private float _minFov = 15f;
+    [SerializeField] private float _maxFov = 90f;
+
+
+
     void Start()
     {
         _fixedY = transform.position.y;
@@ -17,6 +25,7 @@ public class MainCameraController : MonoBehaviour
 
     void Update()
     {
+        //Click & Drag
         var input = PlayerInputControls.Instance;
 
         if (input._middleClickAction.action.WasPressedThisFrame())
@@ -39,6 +48,14 @@ public class MainCameraController : MonoBehaviour
 
             //Clamps the camera to stay within a boundary
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, _xBounds.x, _xBounds.y), _fixedY, Mathf.Clamp(transform.position.z, _zBounds.x, _zBounds.y));
+        }
+
+        //Camera Zoom
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll != 0f)
+        {
+            Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView - scroll * _zoomSpeed, _minFov, _maxFov);
+            Debug.Log("Current FOV: " + Camera.main.fieldOfView);
         }
     }
 

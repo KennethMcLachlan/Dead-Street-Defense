@@ -5,17 +5,12 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField]
-    private NavMeshAgent _agent; 
-    [SerializeField]
-    private Transform _target;
-    [SerializeField]
-    private float _speed = 1.5f;
-    [SerializeField]
-    private float _health = 100f;
+    [SerializeField] private NavMeshAgent _agent; 
+    [SerializeField] private Transform _target;
+    [SerializeField] private float _speed = 1.5f;
+    [SerializeField] private float _health = 100f;
     private Animator _anim;
 
-    // Start is called before the first frame update
     void Start()
     {
         _agent.speed = _speed;
