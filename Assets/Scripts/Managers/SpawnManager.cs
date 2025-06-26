@@ -28,13 +28,13 @@ public class SpawnManager : MonoBehaviour
 
     [Header("Enemies)")]
     [SerializeField] private GameObject _enemy01Prefab;
-    [SerializeField] private Transform _spawnPoint;
+    [SerializeField] public Transform _spawnPoint;
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private List<GameObject> _enemyPool;
     private bool _enemiesAreActive;
 
-    [Header("Navigation")]
-    [SerializeField] private List<Transform> _wayPoints;
+    //[Header("Navigation")]
+    //[SerializeField] private List<Transform> _wayPoints;
 
 
 
@@ -48,7 +48,7 @@ public class SpawnManager : MonoBehaviour
         //For Testing Purposes
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Instantiate(_enemy01Prefab, _spawnPoint);
+            Instantiate(_enemy01Prefab, _spawnPoint.position, Quaternion.identity);
         }
     }
     public void SpawnGatling()

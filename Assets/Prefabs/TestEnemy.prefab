@@ -72,7 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agent: {fileID: 6299215632726369027}
   _target: {fileID: 0}
-  _speed: 1.5
+  _speed: 25
   _health: 100
 --- !u!195 &6299215632726369027
 NavMeshAgent:
