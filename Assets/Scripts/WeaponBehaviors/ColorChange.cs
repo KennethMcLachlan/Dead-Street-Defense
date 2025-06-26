@@ -13,8 +13,6 @@ public class ColorChange : MonoBehaviour
     private Renderer[] _renderers;
     private Material[][] _originalMaterials;
 
-    private GameObject _muzzleFlash;
-
     [SerializeField] private float _transparencyStrength = 0.4f;
 
     private ColorState _currentState = ColorState.Original;
@@ -39,9 +37,6 @@ public class ColorChange : MonoBehaviour
 
             _renderers[i].materials = instanceMats;
         }
-
-        _muzzleFlash = transform.Find("Muzzle_Flash")?.gameObject;
-        _muzzleFlash?.SetActive(false);
     }
 
     public void TurnRed()
@@ -56,7 +51,6 @@ public class ColorChange : MonoBehaviour
 
     public void TurnBlue()
     {
-        // Save current state before overriding it with hover
         _previousState = _currentState;
 
         SetColor(Color.cyan, ColorState.Blue);
@@ -90,14 +84,11 @@ public class ColorChange : MonoBehaviour
             _renderers[i].materials = restored;
         }
 
-        EnableMuzzleFlash();
         _currentState = ColorState.Original;
     }
 
     private void SetColor(Color targetColor, ColorState newState)
     {
-        DisableMuzzleFlash();
-
         foreach (var renderer in _renderers)
         {
             foreach (var mat in renderer.materials)
@@ -134,14 +125,5 @@ public class ColorChange : MonoBehaviour
         mat.EnableKeyword("_ALPHABLEND_ON");
         mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
         mat.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
-    }
-
-    private void EnableMuzzleFlash()
-    {
-        _muzzleFlash?.SetActive(true);
-    }
-    private void DisableMuzzleFlash()
-    {
-        _muzzleFlash?.SetActive(false);
     }
 }

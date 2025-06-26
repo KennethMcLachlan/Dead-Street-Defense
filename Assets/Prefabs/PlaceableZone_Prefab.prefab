@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5844047226715698411}
   - component: {fileID: 8547327743214906453}
   - component: {fileID: 8754847441284992308}
+  - component: {fileID: 9197170868723470980}
   m_Layer: 0
   m_Name: PlaceableZone_Prefab
   m_TagString: Untagged
@@ -123,3 +124,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _emissionStrength: 2
   isInPlacementZone: 0
+--- !u!135 &9197170868723470980
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5702976935573897222}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.21
+  m_Center: {x: 0, y: 0, z: 0}

@@ -43,7 +43,6 @@ public class Enemy : MonoBehaviour
             if (_currentPoint >= _wayPoints.Count)
             {
                 _currentPoint = 0;
-                //Destroy(gameObject); //Will need to be changed for object pooling
 
                 //Temporary for Testing | Used to prevent an error
                 var spawnPoint = SpawnManager.Instance._spawnPoint;

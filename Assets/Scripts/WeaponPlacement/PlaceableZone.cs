@@ -23,6 +23,7 @@ public class PlaceableZone : MonoBehaviour
         {
             isInPlacementZone = true;
 
+
             var draggable = other.GetComponent<Draggable>();
             draggable?.IsInZone();
 
@@ -30,6 +31,11 @@ public class PlaceableZone : MonoBehaviour
             {
                 other.transform.position = gameObject.transform.position;
                 _isPositioned = true;
+                //If is positioned == true
+                //Object can no longer be repositioned
+                //draggable.enabled = false; //May need some reworking
+
+
 
                 other.GetComponent<ColorChange>().ResetToOriginal();
                 //Set IsNotSelected

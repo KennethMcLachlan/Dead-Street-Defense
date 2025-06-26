@@ -14495,6 +14495,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2794057808471717902, guid: 37b5a50f427ab1848ac89bd18c3b11cf, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 7580774770009402192, guid: 37b5a50f427ab1848ac89bd18c3b11cf, type: 3}
       propertyPath: _target
       value: 
@@ -14564,9 +14568,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1227326944787577711, guid: e944fd15dd91fd54cb462a660c445a9b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7687301798385426433, guid: e944fd15dd91fd54cb462a660c445a9b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.988998
+      value: -16.24
       objectReference: {fileID: 0}
     - target: {fileID: 7687301798385426433, guid: e944fd15dd91fd54cb462a660c445a9b, type: 3}
       propertyPath: m_LocalPosition.y
