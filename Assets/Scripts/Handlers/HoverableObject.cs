@@ -15,8 +15,11 @@ public class HoverableObject : MonoBehaviour, IHoverable
         Debug.Log($"Hover Enter: {gameObject.name}");
         if (_colorChange != null)
         {
-            _colorChange.TurnBlue();
             IsHovering = true;
+            if (IsHovering)
+            {
+                _colorChange.TurnBlue();
+            }
         }
     }
 
@@ -24,6 +27,15 @@ public class HoverableObject : MonoBehaviour, IHoverable
     {
         Debug.Log($"Hover Exit: {gameObject.name}");
         _colorChange?.RestorePreviousColor();
-        IsHovering = false;
+
+        if (_colorChange != null)
+        {
+            IsHovering = false;
+            if (!IsHovering)
+            {
+                _colorChange.RestorePreviousColor();
+            }
+
+        }
     }
 }

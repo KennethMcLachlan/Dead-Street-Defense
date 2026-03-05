@@ -6,6 +6,7 @@ public class PlaceableZone : MonoBehaviour
     public bool isInPlacementZone;
     private bool _isPlaced;
     private bool _isPositioned;
+    [SerializeField] private BoxCollider _boxCollider;
 
     private void Update()
     {
@@ -29,18 +30,25 @@ public class PlaceableZone : MonoBehaviour
                 draggable.IsInZone();
             }
 
+
             if (_isPlaced && !_isPositioned)
             {
                 other.transform.position = gameObject.transform.position;
                 _isPositioned = true;
-                //If is positioned == true
-                //Object can no longer be repositioned
-                //draggable.enabled = false; //May need some reworking
 
-
+                var sphereCollider = other.GetComponent<SphereCollider>();
+                if (sphereCollider != null)
+                {
+                    sphereCollider.enabled = true;
+                }
 
                 other.GetComponent<ColorChange>().ResetToOriginal();
-                //Set IsNotSelected
+            }
+
+            if (_isPlaced && _isPositioned)
+            {
+                draggable.enabled = false;
+                _boxCollider.enabled = false;
             }
         }
     }
@@ -49,15 +57,16 @@ public class PlaceableZone : MonoBehaviour
     {
         if (other.CompareTag("Weapon"))
         {
+            isInPlacementZone = false;
+            _isPlaced = false;
+            _isPositioned = false;
+
             var draggable = other.GetComponent<Draggable>();
             if (draggable != null)
             {
                 draggable.NotInZone();
             }
 
-            isInPlacementZone = false;
-            _isPlaced = false;
-            _isPositioned = false;
         }
     }
 }

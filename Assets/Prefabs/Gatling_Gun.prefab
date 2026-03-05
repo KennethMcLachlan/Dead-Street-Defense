@@ -15355,12 +15355,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.2109845, y: 1.5647502, z: 2.299478}
-  m_Center: {x: -0.15647566, y: 0.76620305, z: 0.44616055}
+  m_Size: {x: 1.528986, y: 1.8037014, z: 3.006741}
+  m_Center: {x: -0.31547642, y: 0.88567865, z: 0.4105165}
 --- !u!54 &4968961199190382729
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15405,7 +15405,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 5.25
   m_Center: {x: 0, y: 0, z: 0}

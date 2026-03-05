@@ -73,5 +73,6 @@ public class Draggable : MonoBehaviour
     public void NotInZone()
     {
         _isInZone = false;
+        Debug.Log("NotInZone was called");
     }
 }
