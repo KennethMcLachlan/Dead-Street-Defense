@@ -11,7 +11,7 @@ public class PlaceableZone : MonoBehaviour
     {
         if (!_isPlaced)
         {
-            if (isInPlacementZone && PlayerInputControls.Instance._actionButton.action.WasReleasedThisFrame()) 
+            if (isInPlacementZone && PlayerInputControls.Instance._actionButton.action.WasReleasedThisFrame()) // Need to add and has enough currency?
             {
                 _isPlaced = true;
             }
@@ -23,9 +23,11 @@ public class PlaceableZone : MonoBehaviour
         {
             isInPlacementZone = true;
 
-
             var draggable = other.GetComponent<Draggable>();
-            draggable?.IsInZone();
+            if (draggable != null)
+            {
+                draggable.IsInZone();
+            }
 
             if (_isPlaced && !_isPositioned)
             {
@@ -48,7 +50,10 @@ public class PlaceableZone : MonoBehaviour
         if (other.CompareTag("Weapon"))
         {
             var draggable = other.GetComponent<Draggable>();
-            draggable?.NotInZone();
+            if (draggable != null)
+            {
+                draggable.NotInZone();
+            }
 
             isInPlacementZone = false;
             _isPlaced = false;

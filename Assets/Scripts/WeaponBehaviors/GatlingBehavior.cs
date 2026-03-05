@@ -3,6 +3,7 @@ using UnityEngine;
 public class GatlingBehavior : MonoBehaviour
 {
     private GameObject _muzzleFlash;
+    private int _enemiesInRange = 0;
 
     private void Start()
     {
@@ -17,6 +18,15 @@ public class GatlingBehavior : MonoBehaviour
             Debug.LogError("Muzzle Flash is NULL");
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            _enemiesInRange++;
+        }
+        
+    }
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Enemy"))
@@ -27,6 +37,20 @@ public class GatlingBehavior : MonoBehaviour
             Transform rotateGun = gameObject.transform.GetChild(0);
             rotateGun.LookAt(target);
 
+            // IF enemy is within range, damage enemy
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            _enemiesInRange--;
+            if (_enemiesInRange <= 0)
+            {
+                _enemiesInRange = 0;
+                _muzzleFlash.SetActive(false);
+            }
         }
     }
 }

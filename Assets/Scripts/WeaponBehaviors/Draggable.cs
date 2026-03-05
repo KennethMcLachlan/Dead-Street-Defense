@@ -6,9 +6,19 @@ public class Draggable : MonoBehaviour
     private Camera _mainCamera;
     private LayerMask _groundMask;
     private ColorChange _colorChange;
+    private HoverableObject _hoverable;
 
     public bool isDragging;
     private bool _isInZone;
+
+    private void Awake()
+    {
+        _hoverable = GetComponent<HoverableObject>();
+        if (_hoverable == null)
+        {
+            Debug.LogError("Hoverable Component not found!");
+        }
+    }
 
     private void Start()
     {
@@ -32,7 +42,8 @@ public class Draggable : MonoBehaviour
             {
                 _colorChange.TurnGreen();
             }
-            else
+
+            if (!_isInZone)
             {
                 _colorChange.TurnRed();
             }
@@ -41,6 +52,11 @@ public class Draggable : MonoBehaviour
             {
                 isDragging = false;
             }
+        }
+
+        if (!isDragging && !_hoverable.IsHovering)
+        {
+            _colorChange.ResetToOriginal();
         }
     }
 
