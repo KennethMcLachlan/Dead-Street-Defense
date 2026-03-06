@@ -30,7 +30,6 @@ public class PlaceableZone : MonoBehaviour
                 draggable.IsInZone();
             }
 
-
             if (_isPlaced && !_isPositioned)
             {
                 other.transform.position = gameObject.transform.position;
@@ -67,6 +66,11 @@ public class PlaceableZone : MonoBehaviour
                 draggable.NotInZone();
             }
 
+            //if (!isInPlacementZone && PlayerInputControls.Instance._actionButton.action.WasReleasedThisFrame())
+            //{
+            //    //refund currency
+            //    Destroy(other);
+            //}
         }
     }
 }

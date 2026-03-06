@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -46,6 +47,12 @@ public class Draggable : MonoBehaviour
             if (!_isInZone)
             {
                 _colorChange.TurnRed();
+
+                if (PlayerInputControls.Instance._actionButton.action.WasReleasedThisFrame())
+                {
+                    //Wait til end of frame here?
+                    Destroy(gameObject);
+                }
             }
 
             if (PlayerInputControls.Instance._actionButton.action.WasReleasedThisFrame())
@@ -54,7 +61,7 @@ public class Draggable : MonoBehaviour
             }
         }
 
-        if (!isDragging && !_hoverable.IsHovering)
+        if (!isDragging && _hoverable != null && !_hoverable.IsHovering)
         {
             _colorChange.ResetToOriginal();
         }

@@ -21,20 +21,26 @@ public class HoverManager : MonoBehaviour
 
             if (hoverTarget != _currentHoverable)
             {
-                if (_currentHoverable != null)
+                if (_currentHoverable != null && (_currentHoverable as UnityEngine.Object) != null)
+                {
                     _currentHoverable.OnHoverExit();
+                }
 
                 _currentHoverable = hoverTarget;
 
-                if (_currentHoverable != null)
+                if (_currentHoverable != null && (_currentHoverable as UnityEngine.Object) != null)
                     _currentHoverable.OnHoverEnter();
             }
         }
         else
         {
-            if (_currentHoverable != null)
+            if (_currentHoverable != null && (_currentHoverable as UnityEngine.Object) != null)
             {
                 _currentHoverable.OnHoverExit();
+                _currentHoverable = null;
+            }
+            else
+            {
                 _currentHoverable = null;
             }
         }
