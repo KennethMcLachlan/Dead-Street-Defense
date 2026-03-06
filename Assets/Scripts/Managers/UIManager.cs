@@ -1,10 +1,11 @@
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    
+    #region[Variables & References]
     private static UIManager _instance;
 
     public static UIManager Instance
@@ -18,9 +19,7 @@ public class UIManager : MonoBehaviour
             return _instance;
         }
     }
-
-    #region Variables & References
-
+    
     [Header("HUD Buttons")]
     [SerializeField] private Button _restartButton;
     [SerializeField] private Button _pauseButton;
@@ -55,7 +54,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _prepareText;
     [SerializeField] private GameObject _startText;
     [SerializeField] private GameObject _upgrade;
-    [SerializeField] private GameObject _restart;
+    [SerializeField] private GameObject _restartWindow;
+    [SerializeField] private GameObject _gameOver;
 
     [Header("Other")]
     [SerializeField] private GameObject _player;
@@ -72,14 +72,16 @@ public class UIManager : MonoBehaviour
         _player.GetComponent<HealthHandler>();
     }
 
-    public void UpdateLives(int amount)
-    {
-        _livesText.text = amount.ToString();
-    }
-
+    //Waves
     public void UpdateWaveNumber(int amount)
     {
         _waveNumber.text = amount.ToString() + "/10";
+    }
+
+    //Health
+    public void UpdateLives(int amount)
+    {
+        _livesText.text = amount.ToString();
     }
 
     public void HealthStatusGood()
@@ -100,16 +102,19 @@ public class UIManager : MonoBehaviour
         _statusText.text = "Critical";
     }
 
+    //Warfunds
     public void UpdateWarfunds(int amount)
     {
         _warfundsNumber.text = amount.ToString();
     }
 
+    //Playback
     public void UpdateToNaturalSpeed()
     {
         _play.SetActive(true);
         _pause.SetActive(false);
         _fastForward.SetActive(false);
+        ResumeGame();
     }
 
     public void UpdateToDoubleSpeed()
@@ -117,6 +122,7 @@ public class UIManager : MonoBehaviour
         _fastForward.SetActive(true);
         _play.SetActive(false);
         _pause.SetActive(false);
+        ResumeGame();
     }
 
     public void UpdateToPause()
@@ -124,6 +130,7 @@ public class UIManager : MonoBehaviour
         _pause.SetActive(true);
         _play.SetActive(false);
         _fastForward.SetActive(false);
+        EngagePauseMenu();
     }
 
     //Pop-ups
@@ -145,4 +152,25 @@ public class UIManager : MonoBehaviour
         _prepareText.SetActive(true);
         _waveInfo.SetActive(false);
     }
+
+    //Player Death | Game Over
+    public void EngageGameOver()
+    {
+        Time.timeScale = 0f;
+        _gameOver.SetActive(true);
+    }
+
+    //Pause/Restart
+    public void EngagePauseMenu()
+    {
+        Time.timeScale = 0f;
+        _restartWindow.SetActive(true);
+    }
+
+    public void ResumeGame()
+    {
+        _restartWindow.SetActive(false);
+        Time.timeScale = 1.0f;
+    }
+
 }

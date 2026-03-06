@@ -31,7 +31,7 @@ public class HealthHandler : MonoBehaviour, IDamageable
             UIManager.Instance.UpdateLives(health);
             if (health <= 0)
             {
-                // Player Death
+                UIManager.Instance.EngageGameOver();
             }
             else if (health <= 5)
             {
