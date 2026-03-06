@@ -69,9 +69,6 @@ public class Draggable : MonoBehaviour
                 _colorChange.TurnRed();
             }
             else { _colorChange.ResetToOriginal(); }
-                
-            
-            
         }
     }
 
@@ -89,6 +86,5 @@ public class Draggable : MonoBehaviour
     public void NotInZone()
     {
         _isInZone = false;
-        Debug.Log("NotInZone was called");
     }
 }

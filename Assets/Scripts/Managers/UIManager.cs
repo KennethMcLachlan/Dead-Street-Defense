@@ -40,10 +40,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button _plasmaTurret;
 
     [Header("Text & Numbers")]
-    [SerializeField] private TextMeshPro _warfundsNumber;
-    [SerializeField] private TextMeshPro _waveNumber;
-    [SerializeField] private TextMeshPro _livesText;
-    [SerializeField] private TextMeshPro _statusText;
+    [SerializeField] private Text _warfundsNumber;
+    [SerializeField] private Text _waveNumber;
+    [SerializeField] private Text _livesText;
+    [SerializeField] private Text _statusText;
+
+    [Header("Other")]
+    [SerializeField] private GameObject _player;
 
     #endregion
 
@@ -52,6 +55,41 @@ public class UIManager : MonoBehaviour
         _instance = this;
     }
 
+    private void Start()
+    {
+        _player.GetComponent<HealthHandler>();
+    }
 
+    public void UpdateLives(int amount)
+    {
+        _livesText.text = amount.ToString();
+    }
 
+    public void UpdateWaveNumber(int amount)
+    {
+        _waveNumber.text = amount.ToString() + "/10";
+    }
+
+    public void HealthStatusGood()
+    {
+        _statusText.color = Color.green;
+        _statusText.text = "Good";
+    }
+
+    public void HealthStatusWarning()
+    {
+        _statusText.color = Color.yellow;
+        _statusText.text = "Warning";
+    }
+
+    public void HealthStatusCritical()
+    {
+        _statusText.color = Color.red;
+        _statusText.text = "Critical";
+    }
+
+    public void UpdateWarfunds(int amount)
+    {
+        _warfundsNumber.text = amount.ToString();
+    }
 }

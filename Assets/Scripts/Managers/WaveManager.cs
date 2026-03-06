@@ -33,6 +33,8 @@ public class WaveManager : MonoBehaviour
             yield break;
         }
 
+        UIManager.Instance.UpdateWaveNumber(_currentWave + 1);
+
         yield return new WaitForSeconds(_timeBetweenWaves);
 
         _currentWave++;

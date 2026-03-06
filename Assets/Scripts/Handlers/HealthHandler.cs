@@ -17,19 +17,36 @@ public class HealthHandler : MonoBehaviour, IDamageable
     public void Damage(int amount)
     {
         health -= amount;
-        if (health <= 0)
+
+        if (TryGetComponent(out Enemy enemy))
         {
-            Enemy enemy = GetComponent<Enemy>();
-            if (enemy != null)
+            if (health <= 0)
             {
                 health = _maxHealth;
                 enemy.ResetEnemy();
             }
+        }
+        else
+        {
+            UIManager.Instance.UpdateLives(health);
+            if (health <= 0)
+            {
+                // Player Death
+            }
+            else if (health <= 5)
+            {
+                UIManager.Instance.HealthStatusCritical();
+            }
+            else if (health < 10)
+            {
+                UIManager.Instance.HealthStatusWarning();
+            }
             else
             {
-                //Get Player Component and kill em
+                UIManager.Instance.HealthStatusGood();
             }
         }
+        
     }
 
 }

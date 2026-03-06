@@ -64,12 +64,8 @@ public class PlaceableZone : MonoBehaviour
             {
                 draggable.NotInZone();
             }
-
-            //if (!isInPlacementZone && PlayerInputControls.Instance._actionButton.action.WasReleasedThisFrame())
-            //{
-            //    //refund currency
-            //    Destroy(other);
-            //}
         }
     }
+
+    //If gatlingGun is destroyed, reset the zone (Reenable the box Collider?)
 }

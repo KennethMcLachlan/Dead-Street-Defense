@@ -45,10 +45,7 @@ public class SpawnManager : MonoBehaviour
 
         EnableEnemyPools();
     }
-    private void Update()
-    {
-        
-    }
+
     public void SpawnGatling()
     {
         Camera camera = Camera.main;
@@ -79,6 +76,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    #region[Enemy Spawn & Pooling]
     public void SpawnEnemy()
     {
         _enemyPool.Get();
@@ -126,6 +124,6 @@ public class SpawnManager : MonoBehaviour
             maxSize: 100
             );
     }
+    #endregion
 
-  
 }

@@ -10,9 +10,7 @@ public class Enemy : MonoBehaviour
     [Header("Navigation")]
     private List<Transform> _wayPoints;
     private int _currentPoint = 0;
-
     private NavMeshAgent _agent;
-
 
     private void Awake()
     {
@@ -35,17 +33,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("WayPoint"))
         {
-            Debug.Log("Enemy has triggered a Waypoint");
-
             _currentPoint++;
             if (_currentPoint >= _wayPoints.Count)
             {
@@ -66,7 +57,6 @@ public class Enemy : MonoBehaviour
 
     public void ResetEnemy()
     {
-        
         _currentPoint = 0;
         _enemyPool.Release(gameObject);
         WaveManager.Instance.OnEnemyReturnedToPool();

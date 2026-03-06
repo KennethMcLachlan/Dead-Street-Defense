@@ -60,8 +60,6 @@ public class GatlingBehavior : MonoBehaviour
                     health.Damage(_damagePerSecond);
                 }
             }
-
-            // IF enemy is within range, damage enemy
         }
     }
 

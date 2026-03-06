@@ -16,8 +16,6 @@ public class MainCameraController : MonoBehaviour
     [SerializeField] private float _minFov = 15f;
     [SerializeField] private float _maxFov = 90f;
 
-
-
     void Start()
     {
         _fixedY = transform.position.y;
@@ -25,7 +23,6 @@ public class MainCameraController : MonoBehaviour
 
     void Update()
     {
-        //Click & Drag
         var input = PlayerInputControls.Instance;
 
         if (input._middleClickAction.action.WasPressedThisFrame())
@@ -46,7 +43,6 @@ public class MainCameraController : MonoBehaviour
             transform.position += move;
             transform.position = new Vector3(transform.position.x, _fixedY, transform.position.z);
 
-            //Clamps the camera to stay within a boundary
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, _xBounds.x, _xBounds.y), _fixedY, Mathf.Clamp(transform.position.z, _zBounds.x, _zBounds.y));
         }
 
@@ -55,7 +51,6 @@ public class MainCameraController : MonoBehaviour
         if (scroll != 0f)
         {
             Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView - scroll * _zoomSpeed, _minFov, _maxFov);
-            Debug.Log("Current FOV: " + Camera.main.fieldOfView);
         }
     }
 
@@ -65,6 +60,5 @@ public class MainCameraController : MonoBehaviour
         Vector3 center = new Vector3((_xBounds.x + _xBounds.y) / 2f, _fixedY, (_zBounds.x + _zBounds.y) / 2f);
         Vector3 size = new Vector3(_xBounds.y - _xBounds.x, 0.1f, _zBounds.y - _zBounds.x);
         Gizmos.DrawWireCube(center, size);
-    
     }
 }

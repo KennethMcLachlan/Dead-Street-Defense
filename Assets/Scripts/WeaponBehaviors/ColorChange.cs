@@ -5,7 +5,7 @@ public enum ColorState
     Original,
     Red,
     Green,
-    Blue, // Hover color — not stored as a "base" state
+    Blue,
 }
 
 public class ColorChange : MonoBehaviour
@@ -43,7 +43,6 @@ public class ColorChange : MonoBehaviour
 
     public void TurnRed()
     {
-        Debug.Log("TurnRed called from: " + System.Environment.StackTrace);
         SetColor(Color.red, ColorState.Red);
     }
 
@@ -77,7 +76,6 @@ public class ColorChange : MonoBehaviour
 
     public void ResetToOriginal()
     {
-        Debug.Log("ResetToOriginal called from: " + System.Environment.StackTrace);
         _previousState = ColorState.Original;
         _currentState = ColorState.Original;
 
@@ -90,8 +88,6 @@ public class ColorChange : MonoBehaviour
             }
             _renderers[i].materials = restored;
         }
-
-        //_currentState = ColorState.Original;
     }
 
     private void SetColor(Color targetColor, ColorState newState)
@@ -116,7 +112,6 @@ public class ColorChange : MonoBehaviour
                 }
             }
         }
-
         _currentState = newState;
     }
 

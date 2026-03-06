@@ -4577,10 +4577,11 @@ MonoBehaviour:
   _doubleGatling: {fileID: 0}
   _missileTurret: {fileID: 0}
   _plasmaTurret: {fileID: 0}
-  _warfundsNumber: {fileID: 0}
-  _waveNumber: {fileID: 0}
-  _livesText: {fileID: 0}
-  _statusText: {fileID: 0}
+  _warfundsNumber: {fileID: 2109062355}
+  _waveNumber: {fileID: 640746102}
+  _livesText: {fileID: 783571177}
+  _statusText: {fileID: 254106825}
+  _player: {fileID: 1299022483}
 --- !u!1001 &698831578
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8076,6 +8077,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4114687276565046, guid: 6758f8713d0664371b044fc62ef04b0a, type: 3}
   m_PrefabInstance: {fileID: 1277794218}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1299022483
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1299022485}
+  - component: {fileID: 1299022484}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1299022484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299022483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172242138c281b142a946668beaee654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 20
+  _currentHealth: 20
+--- !u!4 &1299022485
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299022483}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 640, y: 360, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1300546936 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 455280913371343889, guid: 03068d6fce035e4468e8bc73a2f0346a, type: 3}
@@ -11511,9 +11558,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _totalWaves: 10
-  _firstWaveCount: 5
+  _firstWaveCount: 18
   _timeBetweenWaves: 5
-  _enemyCountMultiplier: 1.5
+  _enemyCountMultiplier: 1.2
   _spawnDelay: 0.5
 --- !u!1001 &1681217756
 PrefabInstance:
@@ -12923,8 +12970,9 @@ GameObject:
   - component: {fileID: 1887129448}
   - component: {fileID: 1887129447}
   - component: {fileID: 1887129450}
+  - component: {fileID: 1887129451}
   m_Layer: 0
-  m_Name: WayPoint_End
+  m_Name: WayPointEnd_PlayerHealthTrigger
   m_TagString: WayPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13046,6 +13094,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1887129451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887129445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 570494c5f30c3d248916f3deb996c847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 1299022483}
 --- !u!1 &1887649266
 GameObject:
   m_ObjectHideFlags: 0
@@ -13901,7 +13962,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2052326549}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -14714,6 +14775,7 @@ SceneRoots:
   - {fileID: 170076735}
   - {fileID: 806446190}
   - {fileID: 1080251636}
+  - {fileID: 1299022485}
   - {fileID: 1173012694}
   - {fileID: 592720672}
   - {fileID: 246519963}
