@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class GatlingBehavior : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class GatlingBehavior : MonoBehaviour
     [SerializeField] private int _currentAmmo;
     [SerializeField] private int _maxAmmo;
     public bool isActive;
+
+    private float _damageTimer = 0f;
+    [SerializeField] private int _damagePerSecond = 1;
 
     private void Start()
     {
@@ -43,9 +47,19 @@ public class GatlingBehavior : MonoBehaviour
         {
             _muzzleFlash.SetActive(true);
 
-            var target = other.transform.position;
             Transform rotateGun = gameObject.transform.GetChild(0);
-            rotateGun.LookAt(target);
+            rotateGun.LookAt(other.transform.position);
+
+            _damageTimer += Time.deltaTime;
+            if (_damageTimer > 1f)
+            {
+                _damageTimer = 0f;
+                HealthHandler health = other.GetComponent<HealthHandler>();
+                if (health != null)
+                {
+                    health.Damage(_damagePerSecond);
+                }
+            }
 
             // IF enemy is within range, damage enemy
         }

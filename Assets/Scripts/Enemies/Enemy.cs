@@ -1,15 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Pool;
 
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : MonoBehaviour
 {
+    private ObjectPool<GameObject> _enemyPool;
 
     [Header("Navigation")]
     private List<Transform> _wayPoints;
     private int _currentPoint = 0;
 
     private NavMeshAgent _agent;
+
+    
 
     void Start()
     {
@@ -42,20 +46,30 @@ public class Enemy : MonoBehaviour, IDamageable
             if (_currentPoint >= _wayPoints.Count)
             {
                 _currentPoint = 0;
-                //Send Back to pool
+                ResetEnemy();
                 //Damage Player
-
-                //Temporary for Testing | Used to prevent an error
-                var spawnPoint = SpawnManager.Instance._spawnPoint;
-                gameObject.transform.position = spawnPoint.transform.position;
+                return;
             }
-
             _agent.SetDestination(_wayPoints[_currentPoint].position);
         }
     }
 
-    void Damage()
+    //Object Pooling Methods
+    public void SetPool(ObjectPool<GameObject> pool)
     {
-
+        _enemyPool = pool;
     }
+
+    public void ResetEnemy()
+    {
+        _currentPoint = 0;
+        _enemyPool.Release(gameObject);
+        WaveManager.Instance.OnEnemyReturnedToPool();
+    }
+
+    public void ActivateEnemy()
+    {
+        //is active true;
+    }
+    
 }

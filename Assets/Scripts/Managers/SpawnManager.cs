@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Pool;
+using Unity.VisualScripting;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -27,30 +29,25 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject _missleTurretPrefab;
     [SerializeField] private GameObject _laserCannonPrefab;
 
-    [Header("Enemies)")]
-    [SerializeField] private GameObject _enemy01Prefab;
+    [Header("Enemies")]
+    [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] public Transform _spawnPoint;
-    [SerializeField] private GameObject _enemyContainer;
-    [SerializeField] private List<GameObject> _enemyPool;
     private bool _enemiesAreActive;
 
-    //[Header("Navigation")]
-    //[SerializeField] private List<Transform> _wayPoints;
-
-    
+    [Header("Pooling")]
+    private ObjectPool<GameObject> _enemyPool;
+    [SerializeField] private Transform _poolContainer;
 
 
     private void Awake()
     {
         _instance = this;
+
+        EnableEnemyPools();
     }
     private void Update()
     {
-        //For Testing Purposes
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Instantiate(_enemy01Prefab, _spawnPoint.position, Quaternion.identity);
-        }
+        
     }
     public void SpawnGatling()
     {
@@ -84,11 +81,51 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        // Not Ready Yet
+        _enemyPool.Get();
     }
 
-    public void TestClick()
+    private GameObject CreateEnemy(GameObject prefab)
     {
-        Debug.Log("Button has been clicked");
+        GameObject enemy = Instantiate(prefab, _spawnPoint.position, _spawnPoint.rotation, _poolContainer);
+        enemy.GetComponent<Enemy>().SetPool(GetPoolForEnemy(enemy));
+        return enemy;
     }
+
+    private void OnGetEnemy(GameObject gameObject)
+    {
+        Enemy enemy = gameObject.GetComponent<Enemy>();
+        enemy.ActivateEnemy();
+
+        gameObject.SetActive(true);
+    }
+
+    private void OnDestroyEnemy(GameObject gameObject)
+    {
+        //May not need to Destroy Enemy
+    }
+
+    private ObjectPool<GameObject> GetPoolForEnemy(GameObject enemy)
+    {
+        return _enemyPool;
+    }
+
+    private void OnReleaseEnemy(GameObject gameObject)
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void EnableEnemyPools()
+    {
+        _enemyPool = new ObjectPool<GameObject>(
+            createFunc: () => CreateEnemy(_enemyPrefab),
+            actionOnGet: OnGetEnemy,
+            actionOnRelease: OnReleaseEnemy,
+            actionOnDestroy: OnDestroyEnemy,
+            collectionCheck: true,
+            defaultCapacity: 25,
+            maxSize: 100
+            );
+    }
+
+  
 }

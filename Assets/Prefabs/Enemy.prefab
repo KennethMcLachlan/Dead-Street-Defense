@@ -10,11 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 9028795541891329613}
   - component: {fileID: 7288324886327315708}
-  - component: {fileID: 7580774770009402192}
+  - component: {fileID: 2827666037331716417}
+  - component: {fileID: 2161400696397138403}
   - component: {fileID: 6299215632726369027}
   m_Layer: 0
-  m_Name: TestEnemy
-  m_TagString: Untagged
+  m_Name: Enemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,7 +59,7 @@ CapsuleCollider:
   m_Height: 1.9824657
   m_Direction: 1
   m_Center: {x: 0, y: 0.9477744, z: 0}
---- !u!114 &7580774770009402192
+--- !u!114 &2827666037331716417
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -67,13 +68,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 2794057808471717902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cfdd2e123d398145915d5d738548bca, type: 3}
+  m_Script: {fileID: 11500000, guid: 172242138c281b142a946668beaee654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _agent: {fileID: 6299215632726369027}
-  _target: {fileID: 0}
-  _speed: 25
-  _health: 100
+  _maxHealth: 25
+  _currentHealth: 0
+--- !u!114 &2161400696397138403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2794057808471717902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0369d3b94b05ec84bb137c62a63a4bdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &6299215632726369027
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -114,7 +125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5edc2773676564b94bcb914b423169cc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5edc2773676564b94bcb914b423169cc, type: 3}
       propertyPath: m_LocalPosition.z
