@@ -13,18 +13,22 @@ public class Enemy : MonoBehaviour
 
     private NavMeshAgent _agent;
 
-    
+
+    private void Awake()
+    {
+        _agent = GetComponent<NavMeshAgent>();
+        _wayPoints = WayPointManager.Instance.SendWayPoints();
+    }
 
     void Start()
     {
-        _wayPoints = WayPointManager.Instance.SendWayPoints();
+        //_wayPoints = WayPointManager.Instance.SendWayPoints();
         if (_wayPoints == null || _wayPoints.Count == 0)
         {
             Debug.LogError("Waypoints are not set or empty");
             return;
         }
 
-        _agent = GetComponent<NavMeshAgent>();
         if (_agent != null)
         {
             _agent.destination = _wayPoints[_currentPoint].position;
@@ -62,6 +66,7 @@ public class Enemy : MonoBehaviour
 
     public void ResetEnemy()
     {
+        
         _currentPoint = 0;
         _enemyPool.Release(gameObject);
         WaveManager.Instance.OnEnemyReturnedToPool();
@@ -69,7 +74,9 @@ public class Enemy : MonoBehaviour
 
     public void ActivateEnemy()
     {
-        //is active true;
+        _currentPoint = 0;
+        _agent.Warp(SpawnManager.Instance._spawnPoint.position);
+        _agent.SetDestination(_wayPoints[_currentPoint].position);
     }
     
 }
