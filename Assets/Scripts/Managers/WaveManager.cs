@@ -33,9 +33,20 @@ public class WaveManager : MonoBehaviour
             yield break;
         }
 
+        yield return new WaitForSeconds(3f);
+
+        UIManager.Instance.EngageWaveInfo();
+        yield return new WaitForSeconds(5f);
+        UIManager.Instance.SetWaveStartText();
+        yield return new WaitForSeconds(2f);
+        UIManager.Instance.DisengageWaveInfo();
+
         UIManager.Instance.UpdateWaveNumber(_currentWave + 1);
 
-        yield return new WaitForSeconds(_timeBetweenWaves);
+        if (_currentWave <= 1)
+        {
+            yield return new WaitForSeconds(5f);
+        }
 
         _currentWave++;
         int enemiesToSpawn = Mathf.RoundToInt(_firstWaveCount * Mathf.Pow(_enemyCountMultiplier, _currentWave - 1));

@@ -50,6 +50,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _play;
     [SerializeField] private GameObject _fastForward;
 
+    [Header("Pop-Ups")]
+    [SerializeField] private GameObject _waveInfo;
+    [SerializeField] private GameObject _prepareText;
+    [SerializeField] private GameObject _startText;
+    [SerializeField] private GameObject _upgrade;
+    [SerializeField] private GameObject _restart;
+
     [Header("Other")]
     [SerializeField] private GameObject _player;
 
@@ -117,5 +124,25 @@ public class UIManager : MonoBehaviour
         _pause.SetActive(true);
         _play.SetActive(false);
         _fastForward.SetActive(false);
+    }
+
+    //Pop-ups
+
+    //Waves
+    public void EngageWaveInfo()
+    {
+        _waveInfo.SetActive(true);
+    }
+
+    public void SetWaveStartText()
+    {
+        _prepareText.SetActive(false);
+        _startText.SetActive(true);
+    }
+    public void DisengageWaveInfo()
+    {
+        _startText.SetActive(false);
+        _prepareText.SetActive(true);
+        _waveInfo.SetActive(false);
     }
 }
