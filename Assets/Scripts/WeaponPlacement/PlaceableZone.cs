@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlaceableZone : MonoBehaviour
@@ -12,7 +13,7 @@ public class PlaceableZone : MonoBehaviour
     {
         if (!_isPlaced)
         {
-            if (isInPlacementZone && PlayerInputControls.Instance._actionButton.action.WasReleasedThisFrame()) // Need to add and has enough currency?
+            if (isInPlacementZone && PlayerInputControls.Instance._actionButton.action.WasReleasedThisFrame())
             {
                 _isPlaced = true;
             }
@@ -35,17 +36,15 @@ public class PlaceableZone : MonoBehaviour
                 other.transform.position = gameObject.transform.position;
                 _isPositioned = true;
 
-                var sphereCollider = other.GetComponent<SphereCollider>();
-                if (sphereCollider != null)
+                var gatlingGun = other.GetComponent<GatlingBehavior>();
+                if (gatlingGun != null)
                 {
-                    sphereCollider.enabled = true;
+                    gatlingGun.isActive = true;
                 }
 
+                other.GetComponent<SphereCollider>().enabled = true;
                 other.GetComponent<ColorChange>().ResetToOriginal();
-            }
 
-            if (_isPlaced && _isPositioned)
-            {
                 draggable.enabled = false;
                 _boxCollider.enabled = false;
             }

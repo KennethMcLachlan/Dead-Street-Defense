@@ -12,6 +12,8 @@ public class Draggable : MonoBehaviour
     public bool isDragging;
     private bool _isInZone;
 
+    private bool _justSpawned = true;
+
     private void Awake()
     {
         _hoverable = GetComponent<HoverableObject>();
@@ -50,7 +52,6 @@ public class Draggable : MonoBehaviour
 
                 if (PlayerInputControls.Instance._actionButton.action.WasReleasedThisFrame())
                 {
-                    //Wait til end of frame here?
                     Destroy(gameObject);
                 }
             }
@@ -61,15 +62,23 @@ public class Draggable : MonoBehaviour
             }
         }
 
-        if (!isDragging && _hoverable != null && !_hoverable.IsHovering)
+        if (!isDragging && _hoverable != null && !_hoverable.IsHovering && !_isInZone)
         {
-            _colorChange.ResetToOriginal();
+            if (_justSpawned)
+            {
+                _colorChange.TurnRed();
+            }
+            else { _colorChange.ResetToOriginal(); }
+                
+            
+            
         }
     }
 
     public void BeginDrag()
     {
         isDragging = true;
+        _justSpawned = false;
     }
 
     public void IsInZone()

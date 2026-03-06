@@ -37,10 +37,13 @@ public class ColorChange : MonoBehaviour
 
             _renderers[i].materials = instanceMats;
         }
+
+        TurnRed();
     }
 
     public void TurnRed()
     {
+        Debug.Log("TurnRed called from: " + System.Environment.StackTrace);
         SetColor(Color.red, ColorState.Red);
     }
 
@@ -74,6 +77,10 @@ public class ColorChange : MonoBehaviour
 
     public void ResetToOriginal()
     {
+        Debug.Log("ResetToOriginal called from: " + System.Environment.StackTrace);
+        _previousState = ColorState.Original;
+        _currentState = ColorState.Original;
+
         for (int i = 0; i < _renderers.Length; i++)
         {
             Material[] restored = new Material[_originalMaterials[i].Length];
@@ -84,7 +91,7 @@ public class ColorChange : MonoBehaviour
             _renderers[i].materials = restored;
         }
 
-        _currentState = ColorState.Original;
+        //_currentState = ColorState.Original;
     }
 
     private void SetColor(Color targetColor, ColorState newState)

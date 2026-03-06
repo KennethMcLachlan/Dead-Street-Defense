@@ -17,6 +17,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+
     [Header("Camera")]
     [SerializeField] private Camera _camera;
     private Ray _ray;
@@ -36,7 +37,7 @@ public class SpawnManager : MonoBehaviour
     //[Header("Navigation")]
     //[SerializeField] private List<Transform> _wayPoints;
 
-
+    
 
 
     private void Awake()

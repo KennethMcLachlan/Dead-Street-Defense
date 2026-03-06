@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable
 {
 
     [Header("Navigation")]
@@ -23,7 +23,6 @@ public class Enemy : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         if (_agent != null)
         {
-            Debug.Log("NavMeshAgent Found on spawned enemy");
             _agent.destination = _wayPoints[_currentPoint].position;
         }
     }
@@ -43,6 +42,8 @@ public class Enemy : MonoBehaviour
             if (_currentPoint >= _wayPoints.Count)
             {
                 _currentPoint = 0;
+                //Send Back to pool
+                //Damage Player
 
                 //Temporary for Testing | Used to prevent an error
                 var spawnPoint = SpawnManager.Instance._spawnPoint;
@@ -51,5 +52,10 @@ public class Enemy : MonoBehaviour
 
             _agent.SetDestination(_wayPoints[_currentPoint].position);
         }
+    }
+
+    void Damage()
+    {
+
     }
 }

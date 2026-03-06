@@ -4,6 +4,9 @@ public class GatlingBehavior : MonoBehaviour
 {
     private GameObject _muzzleFlash;
     private int _enemiesInRange = 0;
+    [SerializeField] private int _currentAmmo;
+    [SerializeField] private int _maxAmmo;
+    public bool isActive;
 
     private void Start()
     {
@@ -19,9 +22,16 @@ public class GatlingBehavior : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        //if ammo supply is >0
+        // ammo -1 * TIme.deltaTime
+        // else destroy this object
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && isActive)
         {
             _enemiesInRange++;
         }
@@ -29,7 +39,7 @@ public class GatlingBehavior : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && isActive)
         {
             _muzzleFlash.SetActive(true);
 
@@ -43,7 +53,7 @@ public class GatlingBehavior : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && isActive)
         {
             _enemiesInRange--;
             if (_enemiesInRange <= 0)
