@@ -45,6 +45,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text _livesText;
     [SerializeField] private Text _statusText;
 
+    [Header("Playback")]
+    [SerializeField] private GameObject _pause;
+    [SerializeField] private GameObject _play;
+    [SerializeField] private GameObject _fastForward;
+
     [Header("Other")]
     [SerializeField] private GameObject _player;
 
@@ -91,5 +96,26 @@ public class UIManager : MonoBehaviour
     public void UpdateWarfunds(int amount)
     {
         _warfundsNumber.text = amount.ToString();
+    }
+
+    public void UpdateToNaturalSpeed()
+    {
+        _play.SetActive(true);
+        _pause.SetActive(false);
+        _fastForward.SetActive(false);
+    }
+
+    public void UpdateToDoubleSpeed()
+    {
+        _fastForward.SetActive(true);
+        _play.SetActive(false);
+        _pause.SetActive(false);
+    }
+
+    public void UpdateToPause()
+    {
+        _pause.SetActive(true);
+        _play.SetActive(false);
+        _fastForward.SetActive(false);
     }
 }
