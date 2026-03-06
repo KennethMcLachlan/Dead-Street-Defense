@@ -75,7 +75,9 @@ public class Enemy : MonoBehaviour
     public void ActivateEnemy()
     {
         _currentPoint = 0;
-        _agent.Warp(SpawnManager.Instance._spawnPoint.position);
+        gameObject.SetActive(false);
+        transform.position = SpawnManager.Instance._spawnPoint.position;
+        gameObject.SetActive(true);
         _agent.SetDestination(_wayPoints[_currentPoint].position);
     }
     
