@@ -34,6 +34,7 @@ public class PlaceableZone : MonoBehaviour
             if (_isPlaced && !_isPositioned)
             {
                 other.transform.position = gameObject.transform.position;
+                other.transform.SetParent(transform);
                 _isPositioned = true;
 
                 var gatlingGun = other.GetComponent<GatlingBehavior>();
@@ -67,5 +68,12 @@ public class PlaceableZone : MonoBehaviour
         }
     }
 
+    public void ResetZone()
+    {
+        _isPlaced = false;
+        isInPlacementZone = false;
+        _isPositioned = false;
+        _boxCollider.enabled = true;
+    }
     //If gatlingGun is destroyed, reset the zone (Reenable the box Collider?)
 }

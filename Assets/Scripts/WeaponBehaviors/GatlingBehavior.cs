@@ -7,7 +7,10 @@ public class GatlingBehavior : MonoBehaviour
     private int _enemiesInRange = 0;
     [SerializeField] private int _currentAmmo;
     [SerializeField] private int _maxAmmo;
+    [SerializeField] private float _ammoDepletionRate;
+    [SerializeField] private int _ammoDepletionCount = 10;
     public bool isActive;
+    private Collider _currentTarget;
 
     private float _damageTimer = 0f;
     [SerializeField] private int _damagePerSecond = 1;
@@ -24,13 +27,18 @@ public class GatlingBehavior : MonoBehaviour
         {
             Debug.LogError("Muzzle Flash is NULL");
         }
+
+        _currentAmmo = _maxAmmo;
     }
 
     private void Update()
     {
-        //if ammo supply is >0
-        // ammo -1 * TIme.deltaTime
-        // else destroy this object
+        if (_currentAmmo <= 0)
+        {
+            Debug.Log("Ammo Depleted");
+            isActive = false;
+            DestroyGatling();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -38,12 +46,16 @@ public class GatlingBehavior : MonoBehaviour
         if (other.CompareTag("Enemy") && isActive)
         {
             _enemiesInRange++;
+            if (_currentTarget == null)
+            {
+                _currentTarget = other;
+            }
         }
         
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Enemy") && isActive)
+        if (other.CompareTag("Enemy") && isActive && other == _currentTarget)
         {
             _muzzleFlash.SetActive(true);
 
@@ -59,6 +71,8 @@ public class GatlingBehavior : MonoBehaviour
                 {
                     health.Damage(_damagePerSecond);
                 }
+
+                _currentAmmo -= _ammoDepletionCount;
             }
         }
     }
@@ -67,12 +81,29 @@ public class GatlingBehavior : MonoBehaviour
     {
         if (other.CompareTag("Enemy") && isActive)
         {
+            if (other == _currentTarget)
+            {
+                _currentTarget = null;
+            }
+
             _enemiesInRange--;
             if (_enemiesInRange <= 0)
             {
                 _enemiesInRange = 0;
                 _muzzleFlash.SetActive(false);
             }
+        }
+    }
+
+    private void DestroyGatling()
+    {
+        if (transform.parent != null)
+        {
+            Debug.Log("Gatling Gun Destroyed");
+            //Reduce Warfunds
+            transform.parent.GetComponent<PlaceableZone>().ResetZone();
+            transform.SetParent(null);
+            Destroy(gameObject);
         }
     }
 }

@@ -5528,8 +5528,8 @@ MonoBehaviour:
   _prepareText: {fileID: 1369206046}
   _startText: {fileID: 834260911}
   _upgrade: {fileID: 367531709}
-  _restartWindow: {fileID: 0}
-  _gameOver: {fileID: 0}
+  _restartWindow: {fileID: 500663499}
+  _gameOver: {fileID: 112806538}
   _player: {fileID: 1299022483}
 --- !u!1001 &698831578
 PrefabInstance:
