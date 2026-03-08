@@ -4,6 +4,7 @@ public class HealthHandler : MonoBehaviour, IDamageable
 {
     [SerializeField] private int _maxHealth = 10;
     [SerializeField] private int _currentHealth;
+    [SerializeField] private int _enemyDeathReward = 100;
     public int health
     {
         get => _currentHealth;
@@ -23,6 +24,7 @@ public class HealthHandler : MonoBehaviour, IDamageable
             if (health <= 0)
             {
                 health = _maxHealth;
+                WarfundsHandler.Instance.ReceiveWarfunds(_enemyDeathReward);
                 enemy.ResetEnemy();
             }
         }

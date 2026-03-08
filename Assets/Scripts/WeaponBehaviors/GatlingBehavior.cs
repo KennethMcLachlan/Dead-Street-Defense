@@ -9,6 +9,7 @@ public class GatlingBehavior : MonoBehaviour
     [SerializeField] private int _maxAmmo;
     [SerializeField] private float _ammoDepletionRate;
     [SerializeField] private int _ammoDepletionCount = 10;
+    [SerializeField] private int _selfDestructCost = 200;
     public bool isActive;
     private Collider _currentTarget;
 
@@ -37,6 +38,7 @@ public class GatlingBehavior : MonoBehaviour
         {
             Debug.Log("Ammo Depleted");
             isActive = false;
+            SendSelfDestructCost(_selfDestructCost);
             DestroyGatling();
         }
     }
@@ -100,10 +102,24 @@ public class GatlingBehavior : MonoBehaviour
         if (transform.parent != null)
         {
             Debug.Log("Gatling Gun Destroyed");
-            //Reduce Warfunds
             transform.parent.GetComponent<PlaceableZone>().ResetZone();
             transform.SetParent(null);
             Destroy(gameObject);
         }
+    }
+
+    private void SendSelfDestructCost(int amount)
+    {
+        _selfDestructCost = amount;
+         WarfundsHandler.Instance.WarfundPenalty(_selfDestructCost);
+    }
+
+    public void UpgradeWeapon()
+    {
+        _damagePerSecond += Mathf.RoundToInt(_damagePerSecond * 2);
+        _ammoDepletionCount += Mathf.RoundToInt(_ammoDepletionCount / 2);
+        _selfDestructCost += Mathf.RoundToInt(_selfDestructCost * 2);
+        _maxAmmo += Mathf.RoundToInt(_maxAmmo * 2);
+        _currentAmmo = _maxAmmo;
     }
 }

@@ -15291,8 +15291,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentAmmo: 0
-  _maxAmmo: 100
+  _maxAmmo: 1000
+  _ammoDepletionRate: 0
+  _ammoDepletionCount: 10
+  _selfDestructCost: 200
   isActive: 0
+  _damagePerSecond: 1
 --- !u!114 &873236065975858809
 MonoBehaviour:
   m_ObjectHideFlags: 0

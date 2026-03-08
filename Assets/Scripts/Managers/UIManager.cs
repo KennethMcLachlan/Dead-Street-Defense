@@ -26,10 +26,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _fastForwardButton;
 
-    [Header("Pop-Ups")]
+    [Header("Upgrades")]
     [SerializeField] private GameObject _upgradeGatling;
     [SerializeField] private GameObject _upgradeMissile;
-    [SerializeField] private GameObject _levelStatus;
     [SerializeField] private GameObject _dismantleWeapon;
 
     [Header("Weapon Buttons")]
@@ -124,7 +123,6 @@ public class UIManager : MonoBehaviour
         _play.SetActive(false);
         _pause.SetActive(false);
         _fastForwardButton.interactable = true;
-        //DisengageAllPopUpMenus();
     }
 
     public void UpdateToPause()
@@ -180,7 +178,29 @@ public class UIManager : MonoBehaviour
         _restartWindow.SetActive(false);
         _gameOver.SetActive(false);
         Time.timeScale = 1f;
-        //PlaybackHandler.Instance.NaturalSpeed();
     }
 
+    //Weapon Upgrades
+    public void ShowUpgradePopUp(WeaponType weaponType)
+    {
+               _upgrade.SetActive(true);
+        switch (weaponType)
+        {
+            case WeaponType.GatlingGun:
+                _upgradeGatling.SetActive(true);
+                _upgradeMissile.SetActive(false);
+                _dismantleWeapon.SetActive(false);
+                break;
+            case WeaponType.MissileLauncher:
+                _upgradeGatling.SetActive(false);
+                _upgradeMissile.SetActive(true);
+                _dismantleWeapon.SetActive(false);
+                break;
+            default:
+                _upgradeGatling.SetActive(false);
+                _upgradeMissile.SetActive(false);
+                _dismantleWeapon.SetActive(true);
+                break;
+        }
+    }
 }

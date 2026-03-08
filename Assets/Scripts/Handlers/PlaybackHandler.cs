@@ -35,7 +35,6 @@ public class PlaybackHandler : MonoBehaviour
     {
         Time.timeScale = 2.0f;
         UIManager.Instance.UpdateToDoubleSpeed();
-        Debug.Log("DoubleSpeedEnabled");
     }
 
     public void PauseGame()
