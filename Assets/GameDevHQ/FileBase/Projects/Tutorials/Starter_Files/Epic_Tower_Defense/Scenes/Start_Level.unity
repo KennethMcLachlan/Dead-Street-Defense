@@ -5508,7 +5508,7 @@ MonoBehaviour:
   _restartButton: {fileID: 0}
   _pauseButton: {fileID: 0}
   _playButton: {fileID: 0}
-  _fastForwardButton: {fileID: 0}
+  _fastForwardButton: {fileID: 557316714}
   _upgradeGatling: {fileID: 0}
   _upgradeMissile: {fileID: 0}
   _levelStatus: {fileID: 0}
@@ -12587,9 +12587,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 161819982}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: RestartGame
+      - m_Target: {fileID: 690722308}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: UpdateToNaturalSpeed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13910,9 +13910,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 690722308}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: EngagePauseMenu
+      - m_Target: {fileID: 1429611516}
+        m_TargetAssemblyTypeName: PlaybackHandler, Assembly-CSharp
+        m_MethodName: PauseGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

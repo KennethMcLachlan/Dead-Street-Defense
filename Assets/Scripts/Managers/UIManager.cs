@@ -114,7 +114,8 @@ public class UIManager : MonoBehaviour
         _play.SetActive(true);
         _pause.SetActive(false);
         _fastForward.SetActive(false);
-        ResumeGame();
+        _fastForwardButton.interactable = true;
+        DisengageAllPopUpMenus();
     }
 
     public void UpdateToDoubleSpeed()
@@ -122,7 +123,8 @@ public class UIManager : MonoBehaviour
         _fastForward.SetActive(true);
         _play.SetActive(false);
         _pause.SetActive(false);
-        ResumeGame();
+        _fastForwardButton.interactable = true;
+        //DisengageAllPopUpMenus();
     }
 
     public void UpdateToPause()
@@ -130,6 +132,7 @@ public class UIManager : MonoBehaviour
         _pause.SetActive(true);
         _play.SetActive(false);
         _fastForward.SetActive(false);
+        _fastForwardButton.interactable = false;
         EngagePauseMenu();
     }
 
@@ -156,21 +159,28 @@ public class UIManager : MonoBehaviour
     //Player Death | Game Over
     public void EngageGameOver()
     {
-        Time.timeScale = 0f;
         _gameOver.SetActive(true);
     }
 
     //Pause/Restart
     public void EngagePauseMenu()
     {
-        Time.timeScale = 0f;
         _restartWindow.SetActive(true);
     }
 
     public void ResumeGame()
     {
+        DisengageAllPopUpMenus();
+    }
+
+    public void DisengageAllPopUpMenus()
+    {
         _restartWindow.SetActive(false);
-        Time.timeScale = 1.0f;
+        _upgrade.SetActive(false);
+        _restartWindow.SetActive(false);
+        _gameOver.SetActive(false);
+        Time.timeScale = 1f;
+        //PlaybackHandler.Instance.NaturalSpeed();
     }
 
 }

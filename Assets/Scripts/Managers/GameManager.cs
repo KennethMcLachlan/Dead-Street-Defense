@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            UIManager.Instance.EngagePauseMenu();
+            //UIManager.Instance.EngagePauseMenu();
+            PlaybackHandler.Instance.PauseGame();
         }
     }
 

@@ -31,7 +31,7 @@ public class HealthHandler : MonoBehaviour, IDamageable
             UIManager.Instance.UpdateLives(health);
             if (health <= 0)
             {
-                UIManager.Instance.EngageGameOver();
+                PlaybackHandler.Instance.GameOver();
             }
             else if (health <= 5)
             {

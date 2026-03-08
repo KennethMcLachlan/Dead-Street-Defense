@@ -42,7 +42,6 @@ public class Enemy : MonoBehaviour
             {
                 _currentPoint = 0;
                 ResetEnemy();
-                //Damage Player
                 return;
             }
             _agent.SetDestination(_wayPoints[_currentPoint].position);
