@@ -11,7 +11,8 @@ public class ClickableObject : MonoBehaviour, IClickable
 
     public void OnClick()
     {
-        UIManager.Instance.ShowUpgradePopUp(_weaponType);
+        GatlingBehavior gatlingGun = GetComponent<GatlingBehavior>();
+        UIManager.Instance.ShowUpgradePopUp(_weaponType, gatlingGun);
     }
 }
 

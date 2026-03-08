@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MainCameraController : MonoBehaviour
 {
@@ -47,7 +48,8 @@ public class MainCameraController : MonoBehaviour
         }
 
         //Camera Zoom
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        //float scroll = Input.GetAxis("Mouse ScrollWheel");
+        float scroll = Mouse.current.scroll.ReadValue().y * 0.1f;
         if (scroll != 0f)
         {
             Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView - scroll * _zoomSpeed, _minFov, _maxFov);

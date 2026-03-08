@@ -28,8 +28,10 @@ public class UIManager : MonoBehaviour
 
     [Header("Upgrades")]
     [SerializeField] private GameObject _upgradeGatling;
+    [SerializeField] private Text _gatlingUpgradeCost;
     [SerializeField] private GameObject _upgradeMissile;
     [SerializeField] private GameObject _dismantleWeapon;
+    [SerializeField] private Text _dismantleValue;
 
     [Header("Weapon Buttons")]
     [SerializeField] private Button _gatlingButton;
@@ -58,6 +60,8 @@ public class UIManager : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] private GameObject _player;
+
+    private GatlingBehavior _selectedGatlingGun;
 
     #endregion
 
@@ -105,6 +109,21 @@ public class UIManager : MonoBehaviour
     public void UpdateWarfunds(int amount)
     {
         _warfundsNumber.text = amount.ToString();
+    }
+
+    public void UpdateDismantleDisplay(int amount)
+    {
+        _dismantleValue.text = amount.ToString();
+    }
+
+    public void UpdateGatlingUpgradeCost(int amount)
+    {
+        _gatlingUpgradeCost.text = amount.ToString();
+    }
+
+    public void UpdateMissileLauncherUpgradeCost(int amount)
+    {
+
     }
 
     //Playback
@@ -181,26 +200,85 @@ public class UIManager : MonoBehaviour
     }
 
     //Weapon Upgrades
-    public void ShowUpgradePopUp(WeaponType weaponType)
+    public void ShowUpgradePopUp(WeaponType weaponType, GatlingBehavior gatlingGun = null)
     {
-               _upgrade.SetActive(true);
+        _selectedGatlingGun = null;
+        _selectedGatlingGun = gatlingGun;
+        //SelectedMissileLauncher = missileLauncher;
+        _upgrade.SetActive(true);
         switch (weaponType)
         {
             case WeaponType.GatlingGun:
                 _upgradeGatling.SetActive(true);
-                _upgradeMissile.SetActive(false);
-                _dismantleWeapon.SetActive(false);
+                //_upgradeMissile.SetActive(false);
+                _dismantleWeapon.SetActive(true);
+                if (gatlingGun != null)
+                {
+                    gatlingGun.UpdateUICostValues();
+                }
                 break;
             case WeaponType.MissileLauncher:
                 _upgradeGatling.SetActive(false);
-                _upgradeMissile.SetActive(true);
-                _dismantleWeapon.SetActive(false);
+                //_upgradeMissile.SetActive(true);
+                _dismantleWeapon.SetActive(true);
+                //Update Cost values
                 break;
             default:
                 _upgradeGatling.SetActive(false);
-                _upgradeMissile.SetActive(false);
-                _dismantleWeapon.SetActive(true);
+                //_upgradeMissile.SetActive(false);
+                _dismantleWeapon.SetActive(false);
                 break;
         }
     }
+
+    //private void ReenableAllClickables()
+    //{
+    //    GatlingBehavior[] allGatlings = FindObjectsByType<GatlingBehavior>(FindObjectsSortMode.None);
+    //    foreach (GatlingBehavior g in allGatlings)
+    //    {
+    //        g.EnableClickable();
+    //    }
+    //}
+
+    public void OnUpgradeButtonPressed()
+    {
+        Debug.Log("Upgrading: " + (_selectedGatlingGun != null ? _selectedGatlingGun.gameObject.name : "NULL"));
+        if (_selectedGatlingGun != null)
+        {
+            _selectedGatlingGun.PurchaseUpgrade();
+            _selectedGatlingGun = null;
+        }
+        _upgrade.SetActive(false);
+        _dismantleWeapon.SetActive(false);
+    }
+
+    public void OnUpgradeAndDismantleButtonCanceled()
+    {
+        if (_selectedGatlingGun != null)
+        {
+            //_selectedGatlingGun.ResetCurrentCostValues();
+            _selectedGatlingGun = null;
+        }
+        _upgrade.SetActive(false);
+        _dismantleWeapon.SetActive(false);
+    }
+
+    //Dismantle
+    public void OnDismantleButtonPressed()
+    {
+        if (_selectedGatlingGun != null)
+        {
+            WarfundsHandler.Instance.ReceiveWarfunds(_selectedGatlingGun.GetDismantleValue());
+            _selectedGatlingGun.DestroyGatling();
+            _upgrade.SetActive(false);
+            _dismantleWeapon.SetActive(false);
+            _selectedGatlingGun = null;
+        }
+    }
+
+    public bool IsUpgradePopUpOpen()
+    {
+        return _upgrade.activeSelf;
+    }
+
 }

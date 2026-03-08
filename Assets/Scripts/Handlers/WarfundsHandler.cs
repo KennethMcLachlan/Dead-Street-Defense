@@ -23,6 +23,7 @@ public class WarfundsHandler : MonoBehaviour
     }
 
     [SerializeField] private int _gatlingGunCost = 200;
+    private int _gatlingGunUpgradeCost;
     [SerializeField] private int _missileLauncherCost = 500;
 
     private void Awake()
@@ -50,7 +51,7 @@ public class WarfundsHandler : MonoBehaviour
 
     public void SpendWarfunds(int amount)
     {
-        _warfunds += amount;
+        _warfunds -= amount;
         UpdateUI();
     }
 
@@ -74,6 +75,22 @@ public class WarfundsHandler : MonoBehaviour
             Debug.Log("Can't afford Gatling Gun!");
             //Make Popup or SFX to indicate insufficient funds
         }
+    }
+
+    public void UpgradeGatlingGun(int amount)
+    {
+        //_gatlingGunUpgradeCost = amount;
+        //if (_warfunds >= _gatlingGunUpgradeCost)
+        //{
+        //    _warfunds -= _gatlingGunUpgradeCost;
+        //    UpdateUI();
+        //}
+        //else
+        //{
+        //    //Cant afford upgrade
+        //    Debug.Log("Can't afford Gatling Gun Upgrade!");
+        //    //Make Popup or SFX to indicate insufficient funds
+        //}
     }
 
     public void DismantleGatlingGun()

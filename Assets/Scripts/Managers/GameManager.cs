@@ -5,11 +5,11 @@ public class GameManager : MonoBehaviour
 {
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            //UIManager.Instance.EngagePauseMenu();
-            PlaybackHandler.Instance.PauseGame();
-        }
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    //UIManager.Instance.EngagePauseMenu();
+        //    PlaybackHandler.Instance.PauseGame();
+        //}
     }
 
     public void RestartGame()

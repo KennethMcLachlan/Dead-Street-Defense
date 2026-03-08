@@ -37,6 +37,11 @@ public class MouseInteractions : MonoBehaviour
 
     void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         PlayerInputControls.Instance._lookAction.action.ReadValue<Vector2>();
 
         if (!EventSystem.current.IsPointerOverGameObject())

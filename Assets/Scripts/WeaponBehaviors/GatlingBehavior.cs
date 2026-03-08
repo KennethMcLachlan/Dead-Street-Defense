@@ -4,18 +4,26 @@ using UnityEngine.Rendering;
 public class GatlingBehavior : MonoBehaviour
 {
     private GameObject _muzzleFlash;
-    private int _enemiesInRange = 0;
+
+    [Header("Ammunition")]
     [SerializeField] private int _currentAmmo;
     [SerializeField] private int _maxAmmo;
     [SerializeField] private float _ammoDepletionRate;
     [SerializeField] private int _ammoDepletionCount = 10;
+
+    [Header("Warfund Costs")]
     [SerializeField] private int _selfDestructCost = 200;
-    public bool isActive;
-    private Collider _currentTarget;
+    [SerializeField] private int _upgradeCost = 500;
+    [SerializeField] private int _dismantleValue;
+    public int GetDismantleValue() => _dismantleValue;
 
-    private float _damageTimer = 0f;
+    [Header("Damage")]
     [SerializeField] private int _damagePerSecond = 1;
+    private float _damageTimer = 0f;
+    private Collider _currentTarget;
+    private int _enemiesInRange = 0;
 
+    public bool isActive;
     private void Start()
     {
         Transform firstChild = transform.GetChild(0);
@@ -97,7 +105,7 @@ public class GatlingBehavior : MonoBehaviour
         }
     }
 
-    private void DestroyGatling()
+    public void DestroyGatling()
     {
         if (transform.parent != null)
         {
@@ -116,10 +124,42 @@ public class GatlingBehavior : MonoBehaviour
 
     public void UpgradeWeapon()
     {
-        _damagePerSecond += Mathf.RoundToInt(_damagePerSecond * 2);
-        _ammoDepletionCount += Mathf.RoundToInt(_ammoDepletionCount / 2);
-        _selfDestructCost += Mathf.RoundToInt(_selfDestructCost * 2);
-        _maxAmmo += Mathf.RoundToInt(_maxAmmo * 2);
+        _damagePerSecond *= 2;
+        _ammoDepletionCount = Mathf.RoundToInt(_ammoDepletionCount * 1.5f);
+        _selfDestructCost *= 2;
+        _upgradeCost *= 2;
+        _maxAmmo *= 2;
         _currentAmmo = _maxAmmo;
     }
+
+    public void UpdateUICostValues() // Display cost before purchase
+    {
+        UIManager.Instance.UpdateGatlingUpgradeCost(_upgradeCost);
+        _dismantleValue = _selfDestructCost * 2;
+        UIManager.Instance.UpdateDismantleDisplay(_dismantleValue);
+    }
+
+    public void PurchaseUpgrade()
+    {
+        if (WarfundsHandler.Instance.Warfunds >= _upgradeCost)
+        {
+            WarfundsHandler.Instance.SpendWarfunds(_upgradeCost);
+            UpgradeWeapon();
+            UpdateUICostValues();
+        }
+        else
+        {
+            Debug.Log("Not enough Warfunds to upgrade Gatling Gun");
+        }
+    }
+
+    //public void DisableClickable()
+    //{
+    //    GetComponent<ClickableObject>().enabled = false;
+    //}
+
+    //public void EnableClickable()
+    //{
+    //    GetComponent<ClickableObject>().enabled = true;
+    //}
 }
