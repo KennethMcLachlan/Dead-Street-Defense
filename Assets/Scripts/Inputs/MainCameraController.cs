@@ -48,7 +48,6 @@ public class MainCameraController : MonoBehaviour
         }
 
         //Camera Zoom
-        //float scroll = Input.GetAxis("Mouse ScrollWheel");
         float scroll = Mouse.current.scroll.ReadValue().y * 0.1f;
         if (scroll != 0f)
         {

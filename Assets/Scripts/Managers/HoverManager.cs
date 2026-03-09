@@ -13,6 +13,16 @@ public class HoverManager : MonoBehaviour
 
     private void Update()
     {
+        if (UIManager.Instance.IsUpgradePopUpOpen())
+        {
+            if (_currentHoverable != null && (_currentHoverable as UnityEngine.Object) != null)
+            {
+                _currentHoverable.OnHoverExit();
+                _currentHoverable = null;
+            }
+            return;
+        }
+
         Ray ray = _mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         if (Physics.Raycast(ray, out RaycastHit hit))
@@ -22,14 +32,16 @@ public class HoverManager : MonoBehaviour
             if (hoverTarget != _currentHoverable)
             {
                 if (_currentHoverable != null && (_currentHoverable as UnityEngine.Object) != null)
-                {
                     _currentHoverable.OnHoverExit();
-                }
 
                 _currentHoverable = hoverTarget;
 
                 if (_currentHoverable != null && (_currentHoverable as UnityEngine.Object) != null)
-                    _currentHoverable.OnHoverEnter();
+                {
+                    MonoBehaviour hoverBehaviour = _currentHoverable as MonoBehaviour;
+                    if (hoverBehaviour != null && hoverBehaviour.enabled)
+                        _currentHoverable.OnHoverEnter();
+                }
             }
         }
         else

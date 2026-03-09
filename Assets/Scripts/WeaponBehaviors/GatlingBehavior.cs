@@ -24,6 +24,17 @@ public class GatlingBehavior : MonoBehaviour
     private int _enemiesInRange = 0;
 
     public bool isActive;
+
+    private void OnEnable()
+    {
+        _enemiesInRange = 0;
+        _currentTarget = null;
+        if (_muzzleFlash != null)
+        {
+            _muzzleFlash.SetActive(false);
+        }
+    }
+
     private void Start()
     {
         Transform firstChild = transform.GetChild(0);
@@ -132,7 +143,7 @@ public class GatlingBehavior : MonoBehaviour
         _currentAmmo = _maxAmmo;
     }
 
-    public void UpdateUICostValues() // Display cost before purchase
+    public void UpdateUICostValues()
     {
         UIManager.Instance.UpdateGatlingUpgradeCost(_upgradeCost);
         _dismantleValue = _selfDestructCost * 2;

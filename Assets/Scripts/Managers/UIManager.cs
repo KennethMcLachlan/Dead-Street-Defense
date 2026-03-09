@@ -1,7 +1,9 @@
+using NUnit.Framework;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
@@ -62,6 +64,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _player;
 
     private GatlingBehavior _selectedGatlingGun;
+    private List<GameObject> _disabledWeapons = new List<GameObject>();
 
     #endregion
 
@@ -205,6 +208,7 @@ public class UIManager : MonoBehaviour
         _selectedGatlingGun = null;
         _selectedGatlingGun = gatlingGun;
         //SelectedMissileLauncher = missileLauncher;
+        DisableAllWeaponInteraction();
         _upgrade.SetActive(true);
         switch (weaponType)
         {
@@ -231,18 +235,35 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    //private void ReenableAllClickables()
-    //{
-    //    GatlingBehavior[] allGatlings = FindObjectsByType<GatlingBehavior>(FindObjectsSortMode.None);
-    //    foreach (GatlingBehavior g in allGatlings)
-    //    {
-    //        g.EnableClickable();
-    //    }
-    //}
+    private void DisableAllWeaponInteraction()
+    {
+        _disabledWeapons.Clear();
+        GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
+        foreach (GameObject weapon in weapons)
+        {
+            if (_selectedGatlingGun != null && weapon == _selectedGatlingGun.gameObject)
+            {
+                continue;
+            }
+            _disabledWeapons.Add(weapon);
+            weapon.SetActive(false);
+        }
+        Time.timeScale = 0f;
+    }
+
+    private void EnableAllWeaponInteraction()
+    {
+        GatlingBehavior[] allGatlings = FindObjectsByType<GatlingBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (GatlingBehavior gatling in allGatlings)
+        {
+            gatling.gameObject.SetActive(true);
+        }
+        _disabledWeapons.Clear();
+        Time.timeScale = 1f;
+    }
 
     public void OnUpgradeButtonPressed()
     {
-        Debug.Log("Upgrading: " + (_selectedGatlingGun != null ? _selectedGatlingGun.gameObject.name : "NULL"));
         if (_selectedGatlingGun != null)
         {
             _selectedGatlingGun.PurchaseUpgrade();
@@ -250,17 +271,18 @@ public class UIManager : MonoBehaviour
         }
         _upgrade.SetActive(false);
         _dismantleWeapon.SetActive(false);
+        EnableAllWeaponInteraction();
     }
 
     public void OnUpgradeAndDismantleButtonCanceled()
     {
         if (_selectedGatlingGun != null)
         {
-            //_selectedGatlingGun.ResetCurrentCostValues();
             _selectedGatlingGun = null;
         }
         _upgrade.SetActive(false);
         _dismantleWeapon.SetActive(false);
+        EnableAllWeaponInteraction();
     }
 
     //Dismantle
@@ -273,6 +295,7 @@ public class UIManager : MonoBehaviour
             _upgrade.SetActive(false);
             _dismantleWeapon.SetActive(false);
             _selectedGatlingGun = null;
+            EnableAllWeaponInteraction();
         }
     }
 

@@ -55,6 +55,11 @@ public class MouseInteractions : MonoBehaviour
 
                 if (PlayerInputControls.Instance._actionButton.action.WasPressedThisFrame())
                 {
+                    if (UIManager.Instance.IsUpgradePopUpOpen())
+                    {
+                        return;
+                    }
+
                     IClickable clickable = hit.collider.GetComponent<IClickable>();
                     if (clickable != null)
                     {
