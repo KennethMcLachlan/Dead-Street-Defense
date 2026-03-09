@@ -23,6 +23,9 @@ public class GatlingBehavior : MonoBehaviour
     private Collider _currentTarget;
     private int _enemiesInRange = 0;
 
+    [Header("Gatling Rotation")]
+    [SerializeField] private float _rotationSpeed = 90f;
+
     public bool isActive;
 
     private void OnEnable()
@@ -81,7 +84,10 @@ public class GatlingBehavior : MonoBehaviour
             _muzzleFlash.SetActive(true);
 
             Transform rotateGun = gameObject.transform.GetChild(0);
-            rotateGun.LookAt(other.transform.position);
+            //rotateGun.LookAt(other.transform.position);
+
+            Quaternion targetRotation = Quaternion.LookRotation(other.transform.position - rotateGun.transform.position);
+            rotateGun.rotation = Quaternion.RotateTowards(rotateGun.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
 
             _damageTimer += Time.deltaTime;
             if (_damageTimer > 1f)

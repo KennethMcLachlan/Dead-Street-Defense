@@ -34,6 +34,7 @@ public class PlaceableZone : MonoBehaviour
             if (_isPlaced && !_isPositioned)
             {
                 other.transform.position = gameObject.transform.position;
+                other.transform.rotation = gameObject.transform.rotation;
                 other.transform.SetParent(transform);
                 _isPositioned = true;
 
