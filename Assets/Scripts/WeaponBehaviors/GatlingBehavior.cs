@@ -3,7 +3,6 @@ using UnityEngine.Rendering;
 
 public class GatlingBehavior : WeaponBehavior
 {
-    [Header("Gatling Rotation")]
     [SerializeField] private float _rotationSpeed = 90f;
     private GameObject _muzzleFlash;
 
