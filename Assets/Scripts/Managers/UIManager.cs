@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _upgradeGatling;
     [SerializeField] private Text _gatlingUpgradeCost;
     [SerializeField] private GameObject _upgradeMissile;
+    [SerializeField] private Text _upgradeMissileCost;
     [SerializeField] private GameObject _dismantleWeapon;
     [SerializeField] private Text _dismantleValue;
 
@@ -126,7 +127,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateMissileLauncherUpgradeCost(int amount)
     {
-
+        _upgradeMissileCost.text = amount.ToString();
     }
 
     //Playback
@@ -214,7 +215,7 @@ public class UIManager : MonoBehaviour
         {
             case WeaponType.GatlingGun:
                 _upgradeGatling.SetActive(true);
-                //_upgradeMissile.SetActive(false);
+                _upgradeMissile.SetActive(false);
                 _dismantleWeapon.SetActive(true);
                 if (gatlingGun != null)
                 {
@@ -223,7 +224,7 @@ public class UIManager : MonoBehaviour
                 break;
             case WeaponType.MissileLauncher:
                 _upgradeGatling.SetActive(false);
-                //_upgradeMissile.SetActive(true);
+                _upgradeMissile.SetActive(true);
                 _dismantleWeapon.SetActive(true);
                 //Update Cost values
                 break;

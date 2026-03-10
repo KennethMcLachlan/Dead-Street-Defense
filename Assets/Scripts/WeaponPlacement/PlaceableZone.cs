@@ -7,6 +7,7 @@ public class PlaceableZone : MonoBehaviour
     public bool isInPlacementZone;
     private bool _isPlaced;
     private bool _isPositioned;
+    private bool _isOccupied;
     [SerializeField] private BoxCollider _boxCollider;
 
     private void Update()
@@ -23,6 +24,7 @@ public class PlaceableZone : MonoBehaviour
     {
         if (other.CompareTag("Weapon"))
         {
+            if (_isOccupied) return;
             isInPlacementZone = true;
 
             var draggable = other.GetComponent<Draggable>();
@@ -33,6 +35,7 @@ public class PlaceableZone : MonoBehaviour
 
             if (_isPlaced && !_isPositioned)
             {
+                _isOccupied = true;
                 other.transform.position = gameObject.transform.position;
                 other.transform.rotation = gameObject.transform.rotation;
                 other.transform.SetParent(transform);
@@ -74,6 +77,7 @@ public class PlaceableZone : MonoBehaviour
         _isPlaced = false;
         isInPlacementZone = false;
         _isPositioned = false;
+        _isOccupied = false;
         _boxCollider.enabled = true;
     }
     //If gatlingGun is destroyed, reset the zone (Reenable the box Collider?)
