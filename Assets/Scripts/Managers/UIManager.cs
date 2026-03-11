@@ -1,8 +1,6 @@
-using NUnit.Framework;
-using System.Runtime.CompilerServices;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
@@ -60,6 +58,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _upgrade;
     [SerializeField] private GameObject _restartWindow;
     [SerializeField] private GameObject _gameOver;
+    [SerializeField] private GameObject _notEnoughFunds;
 
     [Header("Other")]
     [SerializeField] private GameObject _player;
@@ -130,6 +129,13 @@ public class UIManager : MonoBehaviour
     public void UpdateMissileLauncherUpgradeCost(int amount)
     {
         _upgradeMissileCost.text = amount.ToString();
+    }
+
+    public IEnumerator DisplayNotEnoughFundsRoutine()
+    {
+        _notEnoughFunds.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        _notEnoughFunds.SetActive(false);
     }
 
     //Playback
@@ -207,9 +213,7 @@ public class UIManager : MonoBehaviour
     //Weapon Upgrades
     public void ShowUpgradePopUp(WeaponType weaponType, GatlingBehavior gatlingGun = null, MissileLauncherBehavior missileLauncher = null)
     {
-        //_selectedGatlingGun = null;
         _selectedGatlingGun = gatlingGun;
-        //_selectedMissileLauncher = null;
         _selectedMissileLauncher = missileLauncher;
 
         if (gatlingGun != null)
@@ -270,12 +274,6 @@ public class UIManager : MonoBehaviour
 
     private void EnableAllWeaponInteraction()
     {
-        //GatlingBehavior[] allGatlings = FindObjectsByType<GatlingBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-        //foreach (GatlingBehavior gatling in allGatlings)
-        //{
-        //    gatling.gameObject.SetActive(true);
-        //}
-
         WeaponBehavior[] allWeapons = FindObjectsByType<WeaponBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (WeaponBehavior weapon in allWeapons)
         {
@@ -287,12 +285,6 @@ public class UIManager : MonoBehaviour
 
     public void OnUpgradeButtonPressed()
     {
-        //if (_selectedGatlingGun != null)
-        //{
-        //    _selectedGatlingGun.PurchaseUpgrade();
-        //    _selectedGatlingGun = null;
-        //}
-
         if (_selectedWeapon != null)
         {
             _selectedWeapon.PurchaseUpgrade();
@@ -306,11 +298,6 @@ public class UIManager : MonoBehaviour
 
     public void OnUpgradeAndDismantleButtonCanceled()
     {
-        //if (_selectedGatlingGun != null)
-        //{
-        //    _selectedGatlingGun = null;
-        //}
-
         _selectedWeapon = null;
         _selectedGatlingGun = null;
         _selectedMissileLauncher = null;
@@ -325,7 +312,6 @@ public class UIManager : MonoBehaviour
         {
             WarfundsHandler.Instance.ReceiveWarfunds(_selectedWeapon.GetDismantleValue());
             _selectedWeapon.DestroyWeapon();
-            //_selectedGatlingGun.DestroyGatling();
             CloseUpgradeWindows();
             _selectedWeapon = null;
             _selectedGatlingGun = null;
