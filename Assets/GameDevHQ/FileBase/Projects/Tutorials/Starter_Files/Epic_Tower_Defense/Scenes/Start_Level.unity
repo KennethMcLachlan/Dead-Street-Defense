@@ -14278,10 +14278,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _totalWaves: 10
-  _firstWaveCount: 10
+  _firstWaveCount: 50
   _timeBetweenWaves: 5
   _enemyCountMultiplier: 1.2
-  _spawnDelay: 0.5
+  _minSpawnDelay: 0.15
+  _maxSpawnDelay: 3
 --- !u!1 &1677299258
 GameObject:
   m_ObjectHideFlags: 0
