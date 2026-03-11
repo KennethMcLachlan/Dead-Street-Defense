@@ -161,7 +161,7 @@ public abstract class WeaponBehavior : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not Enough Warfunds to Upgrade Weapon");
+            UIManager.Instance.DisplayNotEnoughFunds();
         }
     }
 }

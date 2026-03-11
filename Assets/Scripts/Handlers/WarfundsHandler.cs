@@ -72,6 +72,7 @@ public class WarfundsHandler : MonoBehaviour
         else
         {
             //Cant afford weapon
+            UIManager.Instance.DisplayNotEnoughFunds();
             Debug.Log("Can't afford Gatling Gun!");
             //Make Popup or SFX to indicate insufficient funds
         }
@@ -110,6 +111,7 @@ public class WarfundsHandler : MonoBehaviour
         else
         {
             //Cant afford weapon
+            UIManager.Instance.DisplayNotEnoughFunds();
             Debug.Log("Can't afford Missile Launcher!");
             //Make Popup or SFX to indicate insufficient funds
         }

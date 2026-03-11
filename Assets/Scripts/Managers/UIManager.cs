@@ -131,7 +131,12 @@ public class UIManager : MonoBehaviour
         _upgradeMissileCost.text = amount.ToString();
     }
 
-    public IEnumerator DisplayNotEnoughFundsRoutine()
+    public void DisplayNotEnoughFunds()
+    {
+        StartCoroutine(NotEnoughFundsRoutine());
+    }
+
+    private IEnumerator NotEnoughFundsRoutine()
     {
         _notEnoughFunds.SetActive(true);
         yield return new WaitForSeconds(2f);
