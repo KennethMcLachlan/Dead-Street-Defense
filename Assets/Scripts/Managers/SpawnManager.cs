@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 
 public class SpawnManager : MonoBehaviour
 {
+    #region [Variables]
     private static SpawnManager _instance;
     public static SpawnManager Instance
     {
@@ -27,7 +28,6 @@ public class SpawnManager : MonoBehaviour
     [Header("Weapons")]
     [SerializeField] private GameObject _gatlingPrefab;
     [SerializeField] private GameObject _missileLauncherPrefab;
-    [SerializeField] private GameObject _laserCannonPrefab;
 
     [Header("Enemies")]
     [SerializeField] private GameObject _enemyPrefab;
@@ -37,15 +37,19 @@ public class SpawnManager : MonoBehaviour
     [Header("Pooling")]
     private ObjectPool<GameObject> _enemyPool;
     [SerializeField] private Transform _poolContainer;
-
+    [SerializeField] private GameObject _explosionPrefab;
+    private ObjectPool<GameObject> _explosionPool;
+    #endregion
 
     private void Awake()
     {
         _instance = this;
 
         EnableEnemyPools();
+        EnableExplosionPool();
     }
 
+    #region [Spawn Weapons]
     public void SpawnGatling()
     {
         Camera camera = Camera.main;
@@ -68,22 +72,8 @@ public class SpawnManager : MonoBehaviour
             Vector3 spawnPosition = hit.point;
             Instantiate(_missileLauncherPrefab, spawnPosition, Quaternion.identity);
         }
-
-        //if (MouseInteractions.Instance.isMouseOverWorld)
-        //{
-        //    Vector3 spawnPosition = MouseInteractions.Instance.mouseWorldPosition;
-        //    Instantiate(_missleTurretPrefab, spawnPosition, Quaternion.identity);
-        //}
     }
-
-    //public void SpawnLaserCannon()
-    //{
-    //    if (MouseInteractions.Instance.isMouseOverWorld)
-    //    {
-    //        Vector3 spawnPosition = MouseInteractions.Instance.mouseWorldPosition;
-    //        Instantiate(_laserCannonPrefab, spawnPosition, Quaternion.identity);
-    //    }
-    //}
+    #endregion
 
     #region[Enemy Spawn & Pooling]
     public void SpawnEnemy()
@@ -135,4 +125,29 @@ public class SpawnManager : MonoBehaviour
     }
     #endregion
 
+    #region [Missile Explosion Pooling]
+    private void EnableExplosionPool()
+    {
+        _explosionPool = new ObjectPool<GameObject>(
+            createFunc: () =>
+            {
+                GameObject obj = Instantiate(_explosionPrefab);
+                obj.GetComponent<MissileExplosionBehavior>().SetPool(_explosionPool);
+                return obj;
+            },
+            actionOnGet: obj => obj.SetActive(true),
+            actionOnRelease: obj => obj.SetActive(false),
+            actionOnDestroy: obj => Destroy(obj),
+            defaultCapacity: 10,
+            maxSize: 20
+            );
+    }
+
+    public GameObject SpawnExplosion(Vector3 position)
+    {
+        GameObject explosion = _explosionPool.Get();
+        explosion.transform.position = position;
+        return explosion;
+    }
+    #endregion
 }

@@ -15132,7 +15132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7687301798385426433}
-  - component: {fileID: 5958861120472862486}
   - component: {fileID: 242033717846684704}
   - component: {fileID: 1498924269259298254}
   - component: {fileID: 873236065975858809}
@@ -15166,21 +15165,6 @@ Transform:
   - {fileID: 7547113401610064657}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5958861120472862486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8579643180664478207}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11c7edd4816764b2cb111ea15f8f117a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Muzzle_Flash: {fileID: 1930179175127183603}
-  bulletCasings: {fileID: 6259294010857111191}
-  fireSound: {fileID: 8300000, guid: 08e0cb88300e54b09aa0deb684c3a3de, type: 3}
 --- !u!82 &242033717846684704
 AudioSource:
   m_ObjectHideFlags: 0
@@ -15292,13 +15276,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentAmmo: 0
   _maxAmmo: 1000
-  _ammoDepletionRate: 0
   _ammoDepletionCount: 10
   _selfDestructCost: 200
   _upgradeCost: 500
   _dismantleValue: 0
   _damagePerSecond: 1
   isActive: 0
+  _rotationSpeed: 90
+  _damageRate: 1
 --- !u!114 &873236065975858809
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,7 +7,6 @@ public class MissileLauncherBehavior : WeaponBehavior
     [SerializeField] private float _damageRate = 3f;
     private GameObject _muzzleFlash;
     private ParticleSystem _muzzleParticle;
-    [SerializeField] private GameObject _explosionPrefab;
 
     protected override void Start()
     {
@@ -49,11 +48,7 @@ public class MissileLauncherBehavior : WeaponBehavior
             _muzzleParticle.Play();
         }
 
-        //AOE Explosion
-        if (_explosionPrefab != null)
-        {
-            Instantiate(_explosionPrefab, target.transform.position, Quaternion.identity);
-        }
+        SpawnManager.Instance.SpawnExplosion(target.transform.position);
     }
 
     public override void UpdateUICostValues()

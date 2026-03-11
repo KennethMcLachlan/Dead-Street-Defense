@@ -46,6 +46,7 @@ public abstract class WeaponBehavior : MonoBehaviour
     {
         if (other.CompareTag("Enemy") && isActive)
         {
+            Debug.Log("Enemy has enetered trigger");
             _enemiesInRange++;
             if (_currentTarget == null)
             {

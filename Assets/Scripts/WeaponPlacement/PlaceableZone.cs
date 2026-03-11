@@ -41,10 +41,10 @@ public class PlaceableZone : MonoBehaviour
                 other.transform.SetParent(transform);
                 _isPositioned = true;
 
-                var gatlingGun = other.GetComponent<GatlingBehavior>();
-                if (gatlingGun != null)
+                var weapon = other.GetComponent<WeaponBehavior>();
+                if (weapon != null)
                 {
-                    gatlingGun.isActive = true;
+                    weapon.isActive = true;
                 }
 
                 other.GetComponent<SphereCollider>().enabled = true;
@@ -80,5 +80,4 @@ public class PlaceableZone : MonoBehaviour
         _isOccupied = false;
         _boxCollider.enabled = true;
     }
-    //If gatlingGun is destroyed, reset the zone (Reenable the box Collider?)
 }
