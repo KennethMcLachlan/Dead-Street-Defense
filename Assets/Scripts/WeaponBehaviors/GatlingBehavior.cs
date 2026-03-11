@@ -4,7 +4,9 @@ using UnityEngine.Rendering;
 public class GatlingBehavior : WeaponBehavior
 {
     [SerializeField] private float _rotationSpeed = 90f;
+    [SerializeField] private float _damageRate = 1f;
     private GameObject _muzzleFlash;
+
 
     protected override void Start()
     {
@@ -46,7 +48,7 @@ public class GatlingBehavior : WeaponBehavior
 
     protected override float GetFireRate()
     {
-        return 1f;
+        return _damageRate;
     }
 
     protected override void OnDamageDealt(Collider target)
