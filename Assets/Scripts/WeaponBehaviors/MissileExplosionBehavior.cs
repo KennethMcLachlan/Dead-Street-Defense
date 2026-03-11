@@ -6,6 +6,9 @@ public class MissileExplosionBehavior : MonoBehaviour
 {
     [SerializeField] private int _explosionDamage = 5;
     [SerializeField] private float _lifetime = 2f;
+    [SerializeField] private SphereCollider _collider;
+    [SerializeField] private float _collisionTime = 0.5f;
+    [SerializeField] private ParticleSystem _particleSystem;
     private ObjectPool<GameObject> _pool;
        
 
@@ -16,11 +19,21 @@ public class MissileExplosionBehavior : MonoBehaviour
 
     private void OnEnable()
     {
+        _collider.enabled = true;
+
+        if (_particleSystem != null)
+        {
+            _particleSystem.Stop();
+            _particleSystem.Play();
+        }
+    
         StartCoroutine(ReturnToPoolRoutine());
     }
 
     private IEnumerator ReturnToPoolRoutine()
     {
+        yield return new WaitForSeconds(_collisionTime);
+        _collider.enabled = false;
         yield return new WaitForSeconds(_lifetime);
         _pool.Release(gameObject);
     }

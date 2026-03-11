@@ -18,7 +18,8 @@ public class ClickableObject : MonoBehaviour, IClickable
         }
 
         GatlingBehavior gatlingGun = GetComponent<GatlingBehavior>();
-        UIManager.Instance.ShowUpgradePopUp(_weaponType, gatlingGun);
+        MissileLauncherBehavior missileLauncher = GetComponent<MissileLauncherBehavior>();
+        UIManager.Instance.ShowUpgradePopUp(_weaponType, gatlingGun, missileLauncher);
     }
 }
 

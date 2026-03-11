@@ -1,19 +1,14 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MissileLauncherBehavior : WeaponBehavior
 {
     [SerializeField] private float _rotationSpeed = 90f;
     [SerializeField] private float _damageRate = 3f;
-    private GameObject _muzzleFlash;
-    private ParticleSystem _muzzleParticle;
+    [SerializeField] private ParticleSystem _muzzleFlash;
 
     protected override void Start()
     {
         base.Start();
-        Transform muzzleChild = transform.GetChild(1);
-        _muzzleFlash = muzzleChild.GetChild(0).gameObject;
-        _muzzleParticle = _muzzleFlash.GetComponent<ParticleSystem>();
         if (_muzzleFlash == null)
         {
             Debug.LogError("MissileLauncher MuzzleFlash is NULL!");
@@ -37,24 +32,19 @@ public class MissileLauncherBehavior : WeaponBehavior
 
     protected override void OnTargetLost()
     {
-        ParticleSystem muzzleFlash = _muzzleFlash.GetComponent<ParticleSystem>();
-        muzzleFlash.Stop();
+        //_muzzleFlash.Stop();
     }
 
     protected override void OnDamageDealt(Collider target)
     {
-        if (_muzzleParticle != null)
-        {
-            _muzzleParticle.Play();
-        }
-
+        _muzzleFlash.Play();
         SpawnManager.Instance.SpawnExplosion(target.transform.position);
     }
 
     public override void UpdateUICostValues()
     {
         base.UpdateUICostValues();
-        UIManager.Instance.UpdateGatlingUpgradeCost(_upgradeCost);
+        UIManager.Instance.UpdateMissileLauncherUpgradeCost(_upgradeCost);
     }
 
     public void DestroyMissileLauncher()
