@@ -61,7 +61,7 @@ MonoBehaviour:
   _selfDestructCost: 200
   _upgradeCost: 500
   _dismantleValue: 0
-  _damagePerSecond: 1
+  _damagePerSecond: 2
   isActive: 0
   _rotationSpeed: 90
   _damageRate: 3

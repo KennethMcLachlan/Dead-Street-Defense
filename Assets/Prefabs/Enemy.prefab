@@ -72,8 +72,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 2
+  _minHealth: 3
   _currentHealth: 0
   _enemyDeathReward: 200
+  _canRandomizeHealth: 1
 --- !u!114 &2161400696397138403
 MonoBehaviour:
   m_ObjectHideFlags: 0

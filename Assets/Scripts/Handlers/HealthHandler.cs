@@ -1,10 +1,13 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class HealthHandler : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int _maxHealth = 10;
+    [SerializeField] private int _maxHealth = 12;
+    [SerializeField] private int _minHealth = 3;
     [SerializeField] private int _currentHealth;
     [SerializeField] private int _enemyDeathReward = 100;
+    [SerializeField] private bool _canRandomizeHealth;
     public int health
     {
         get => _currentHealth;
@@ -13,7 +16,11 @@ public class HealthHandler : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        _currentHealth = _maxHealth;
+        if (_canRandomizeHealth)
+        {
+            _currentHealth = Random.Range(_minHealth, _maxHealth);
+        }
+        else { _currentHealth = _maxHealth; }
     }
     public void Damage(int amount)
     {
