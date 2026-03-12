@@ -212,7 +212,7 @@ public abstract class WeaponBehavior : MonoBehaviour
 
     public virtual void UpdateUICostValues()
     {
-        _dismantleValue = _selfDestructCost * 2;
+        _dismantleValue = _selfDestructCost / 2;
         UIManager.Instance.UpdateDismantleDisplay(_dismantleValue);
     }
 

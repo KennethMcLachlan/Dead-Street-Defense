@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CFXR Explosion Smoke 2 Solo (HDR)
       objectReference: {fileID: 0}
+    - target: {fileID: 725748389856807726, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
+      propertyPath: clearBehavior
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 725748389856807727, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.25
