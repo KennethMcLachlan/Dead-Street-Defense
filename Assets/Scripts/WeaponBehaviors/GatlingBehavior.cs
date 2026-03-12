@@ -32,6 +32,16 @@ public class GatlingBehavior : WeaponBehavior
         }
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        if (_enemiesInRange <= 0 && _muzzleFlash.activeSelf)
+        {
+            Debug.Log("Muzzle Flash has been set to INACTIVE!!");
+            _muzzleFlash.SetActive(false);
+        }
+    }
+
     protected override void OnFire()
     {
         _muzzleFlash.SetActive(true);
@@ -40,10 +50,11 @@ public class GatlingBehavior : WeaponBehavior
 
     protected override void OnTargetLost()
     {
-        if (_muzzleFlash != null)
-        {
-            _muzzleFlash.SetActive(false);
-        }
+        //if (_muzzleFlash != null)
+        //{
+        //    _muzzleFlash.SetActive(false);
+        //}
+        _muzzleFlash.SetActive(false);
     }
 
     protected override float GetFireRate()

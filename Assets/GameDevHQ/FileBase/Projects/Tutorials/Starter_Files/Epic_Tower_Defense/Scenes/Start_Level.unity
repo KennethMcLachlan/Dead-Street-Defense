@@ -14278,7 +14278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _totalWaves: 10
-  _firstWaveCount: 50
+  _firstWaveCount: 5
   _timeBetweenWaves: 5
   _enemyCountMultiplier: 1.2
   _minSpawnDelay: 0.15
@@ -17152,7 +17152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047a59fbae43fca4997817f5e1dc9c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _warfunds: 300
+  _warfunds: 1000
   _gatlingGunCost: 200
   _missileLauncherCost: 500
 --- !u!1 &2031534178

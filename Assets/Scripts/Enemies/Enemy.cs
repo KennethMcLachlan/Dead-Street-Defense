@@ -57,6 +57,7 @@ public class Enemy : MonoBehaviour
     public void ResetEnemy()
     {
         _currentPoint = 0;
+        GetComponent<HealthHandler>().ResetHealth();
         _enemyPool.Release(gameObject);
         WaveManager.Instance.OnEnemyReturnedToPool();
     }

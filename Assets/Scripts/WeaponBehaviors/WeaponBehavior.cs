@@ -40,14 +40,38 @@ public abstract class WeaponBehavior : MonoBehaviour
             SendSelfDestructCost(_selfDestructCost);
             DestroyWeapon();
         }
+
+        if (isActive)
+        {
+            TrackEnemiesInRange();
+        }
+    }
+
+    #region [Enemy Tracking]
+    private void TrackEnemiesInRange()
+    {
+        SphereCollider sphereCollider = GetComponent<SphereCollider>();
+        Collider[] hits = Physics.OverlapSphere(transform.position, sphereCollider.radius);
+        _enemiesInRange = 0;
+        foreach (Collider hit in hits)
+        {
+            if (hit.CompareTag("Enemy"))
+            {
+                _enemiesInRange++;
+            }
+        }
+
+        if (_enemiesInRange <= 0)
+        {
+            _currentTarget = null;
+            OnTargetLost();
+        }
     }
 
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy") && isActive)
         {
-            Debug.Log("Enemy has enetered trigger");
-            _enemiesInRange++;
             if (_currentTarget == null)
             {
                 _currentTarget = other;
@@ -57,20 +81,30 @@ public abstract class WeaponBehavior : MonoBehaviour
 
     protected virtual void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Enemy") && isActive && other == _currentTarget)
+        if (other.CompareTag("Enemy") && isActive)
         {
-            _damageTimer += Time.deltaTime;
-            OnFire();
-            if (_damageTimer > GetFireRate())
+            if (_currentTarget == null || !_currentTarget.gameObject.activeInHierarchy)
             {
+                _currentTarget = other;
                 _damageTimer = 0f;
-                HealthHandler health = other.GetComponent<HealthHandler>();
-                if (health != null)
+                OnTargetLost();
+            }
+
+            if (other == _currentTarget)
+            {
+                _damageTimer += Time.deltaTime;
+                OnFire();
+                if (_damageTimer > GetFireRate())
                 {
-                    health.Damage(_damagePerSecond);
+                    _damageTimer = 0f;
+                    HealthHandler health = other.GetComponent<HealthHandler>();
+                    if (health != null)
+                    {
+                        health.Damage(_damagePerSecond);
+                    }
+                    _currentAmmo -= _ammoDepletionCount;
+                    OnDamageDealt(other);
                 }
-                _currentAmmo -= _ammoDepletionCount;
-                OnDamageDealt(other);
             }
         }
     }
@@ -82,13 +116,7 @@ public abstract class WeaponBehavior : MonoBehaviour
             if (other == _currentTarget)
             {
                 _currentTarget = null;
-            }
-
-            _enemiesInRange--;
-            if (_enemiesInRange <= 0)
-            {
-                _enemiesInRange = 0;
-                OnTargetLost();
+                _damageTimer = 0f;
             }
         }
     }
@@ -98,7 +126,9 @@ public abstract class WeaponBehavior : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(_currentTarget.transform.position - rotateGun.position);
         rotateGun.rotation = Quaternion.RotateTowards(rotateGun.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
+    #endregion
 
+    #region [Damage Communication]
     protected virtual void OnFire()
     {
 
@@ -118,7 +148,9 @@ public abstract class WeaponBehavior : MonoBehaviour
     {
         return 1f;
     }
+    #endregion
 
+    #region[Destroy Weapons]
     public virtual void DestroyWeapon()
     {
         if (transform.parent != null)
@@ -134,7 +166,9 @@ public abstract class WeaponBehavior : MonoBehaviour
         _selfDestructCost = amount;
         WarfundsHandler.Instance.WarfundPenalty(_selfDestructCost);
     }
+    #endregion
 
+    #region [Upgrade Weapons]
     public virtual void UpgradeWeapon()
     {
         _damagePerSecond *= 2;
@@ -164,4 +198,5 @@ public abstract class WeaponBehavior : MonoBehaviour
             UIManager.Instance.DisplayNotEnoughFunds();
         }
     }
+    #endregion
 }

@@ -48,7 +48,10 @@ public class HealthHandler : MonoBehaviour, IDamageable
                 UIManager.Instance.HealthStatusGood();
             }
         }
-        
     }
 
+    public void ResetHealth()
+    {
+        _currentHealth = _maxHealth;
+    }
 }
