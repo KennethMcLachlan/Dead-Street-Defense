@@ -6,6 +6,9 @@ public abstract class WeaponBehavior : MonoBehaviour
     [SerializeField] protected int _currentAmmo;
     [SerializeField] protected int _maxAmmo;
     [SerializeField] protected int _ammoDepletionCount = 10;
+    [SerializeField] protected float _lowAmmoIndicator = 0.25f;
+    [SerializeField] protected ParticleSystem _smokePFX;
+    private bool _isSmokePlaying;
 
     [Header("Warfund Costs")]
     [SerializeField] protected int _selfDestructCost = 200;
@@ -30,9 +33,24 @@ public abstract class WeaponBehavior : MonoBehaviour
     {
         _enemiesInRange = 0;
         _currentTarget = null;
+        _isSmokePlaying = false;
+        if (_smokePFX != null)
+        {
+            _smokePFX.Stop();
+        }
     }
 
     protected virtual void Update()
+    {
+        AmmoTracking();
+
+        if (isActive)
+        {
+            TrackEnemiesInRange();
+        }
+    }
+
+    private void AmmoTracking()
     {
         if (_currentAmmo <= 0)
         {
@@ -41,9 +59,22 @@ public abstract class WeaponBehavior : MonoBehaviour
             DestroyWeapon();
         }
 
-        if (isActive)
+        if (!_isSmokePlaying && _currentAmmo <= _maxAmmo * _lowAmmoIndicator)
         {
-            TrackEnemiesInRange();
+            _isSmokePlaying = true;
+            if (_smokePFX != null)
+            {
+                _smokePFX.Play();
+            }
+        }
+
+        if (_isSmokePlaying && _currentAmmo > _maxAmmo * _lowAmmoIndicator)
+        {
+            _isSmokePlaying = false;
+            if (_smokePFX != null)
+            {
+                _smokePFX.Stop();
+            }
         }
     }
 
@@ -86,7 +117,7 @@ public abstract class WeaponBehavior : MonoBehaviour
             if (_currentTarget == null || !_currentTarget.gameObject.activeInHierarchy)
             {
                 _currentTarget = other;
-                _damageTimer = 0f;
+                //_damageTimer = 0f;
                 OnTargetLost();
             }
 
@@ -116,7 +147,7 @@ public abstract class WeaponBehavior : MonoBehaviour
             if (other == _currentTarget)
             {
                 _currentTarget = null;
-                _damageTimer = 0f;
+                //_damageTimer = 0f;
             }
         }
     }
