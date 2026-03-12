@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class PlaceableZone : MonoBehaviour
     private bool _isPositioned;
     private bool _isOccupied;
     [SerializeField] private BoxCollider _boxCollider;
+    [SerializeField] private ParticleSystem _psGlow;
 
     private void Update()
     {
@@ -50,6 +52,8 @@ public class PlaceableZone : MonoBehaviour
                 other.GetComponent<SphereCollider>().enabled = true;
                 other.GetComponent<ColorChange>().ResetToOriginal();
 
+                _psGlow.Stop();
+
                 draggable.enabled = false;
                 _boxCollider.enabled = false;
             }
@@ -78,6 +82,7 @@ public class PlaceableZone : MonoBehaviour
         isInPlacementZone = false;
         _isPositioned = false;
         _isOccupied = false;
+        _psGlow.Play();
         _boxCollider.enabled = true;
     }
 }
