@@ -88,8 +88,6 @@ public abstract class EnemyBase : MonoBehaviour
         _isDying = false;
         _skinnedMeshRenderer.material = _originalMaterial;
         _currentPoint = 0;
-        //_currentSpeed = Random.Range(_minSpeed, _maxSpeed);
-        //_agent.speed = _currentSpeed;
         GetComponent<HealthHandler>().ResetHealth();
         _enemyPool.Release(gameObject);
         WaveManager.Instance.OnEnemyReturnedToPool();

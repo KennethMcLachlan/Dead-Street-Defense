@@ -31,11 +31,13 @@ public class SpawnManager : MonoBehaviour
 
     [Header("Enemies")]
     [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private GameObject _enemyMonsterPrefab;
     [SerializeField] public Transform _spawnPoint;
-    private bool _enemiesAreActive;
+    [SerializeField] private float _chanceRateToSpawn = 0.05f;
 
     [Header("Pooling")]
     private ObjectPool<GameObject> _enemyPool;
+    private ObjectPool<GameObject> _enemyMonsterPool;
     [SerializeField] private Transform _poolContainer;
     [SerializeField] private GameObject _explosionPrefab;
     private ObjectPool<GameObject> _explosionPool;
@@ -46,6 +48,7 @@ public class SpawnManager : MonoBehaviour
         _instance = this;
 
         EnableEnemyPools();
+        EnableEnemyMonsterPool();
         EnableExplosionPool();
     }
 
@@ -76,24 +79,32 @@ public class SpawnManager : MonoBehaviour
     #endregion
 
     #region[Enemy Spawn & Pooling]
-    public void SpawnEnemy()
+    public void SpawnEnemy(bool allowMonster = false)
     {
-        _enemyPool.Get();
+        if (allowMonster && Random.value < _chanceRateToSpawn)
+        {
+            _enemyMonsterPool.Get();
+        }
+        else
+        {
+            _enemyPool.Get();
+        }
     }
 
     private GameObject CreateEnemy(GameObject prefab)
     {
         GameObject enemy = Instantiate(prefab, _spawnPoint.position, _spawnPoint.rotation, _poolContainer);
-        enemy.GetComponent<Enemy>().SetPool(GetPoolForEnemy(enemy));
+        enemy.GetComponent<EnemyBase>().SetPool(GetPoolForEnemy(enemy));
         return enemy;
     }
 
     private void OnGetEnemy(GameObject gameObject)
     {
-        Enemy enemy = gameObject.GetComponent<Enemy>();
-        enemy.ActivateEnemy();
+        //Enemy enemy = gameObject.GetComponent<EnemyBase>();
+        //enemy.ActivateEnemy();
 
-        gameObject.SetActive(true);
+        gameObject.GetComponent<EnemyBase>().ActivateEnemy();
+        //gameObject.SetActive(true);
     }
 
     private void OnDestroyEnemy(GameObject gameObject)
@@ -103,7 +114,11 @@ public class SpawnManager : MonoBehaviour
 
     private ObjectPool<GameObject> GetPoolForEnemy(GameObject enemy)
     {
-        return _enemyPool;
+        if (enemy.GetComponent<EnemyMonster>() != null)
+        {
+            return _enemyMonsterPool;
+        }
+        else { return _enemyPool; }
     }
 
     private void OnReleaseEnemy(GameObject gameObject)
@@ -121,6 +136,19 @@ public class SpawnManager : MonoBehaviour
             collectionCheck: true,
             defaultCapacity: 25,
             maxSize: 100
+            );
+    }
+
+    private void EnableEnemyMonsterPool()
+    {
+        _enemyMonsterPool = new ObjectPool<GameObject>(
+            createFunc: () => CreateEnemy(_enemyMonsterPrefab),
+            actionOnGet: OnGetEnemy,
+            actionOnRelease: OnReleaseEnemy,
+            actionOnDestroy: OnDestroyEnemy,
+            collectionCheck: true,
+            defaultCapacity: 10,
+            maxSize: 50
             );
     }
     #endregion

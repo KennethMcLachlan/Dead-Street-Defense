@@ -9,7 +9,6 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private int _firstWaveCount = 5;
     [SerializeField] private float _timeBetweenWaves = 5f;
     [SerializeField] private float _enemyCountMultiplier = 1.5f;
-    //[SerializeField] private float _spawnDelay = 0.5f;
     [SerializeField] private float _minSpawnDelay = 0.4f;
     [SerializeField] private float _maxSpawnDelay = 1.2f;
 
@@ -59,7 +58,7 @@ public class WaveManager : MonoBehaviour
 
         for (int i= 0; i < enemiesToSpawn; i++)
         {
-            SpawnManager.Instance.SpawnEnemy();
+            SpawnManager.Instance.SpawnEnemy(_currentWave >= 0);
             yield return new WaitForSeconds(Random.Range(_minSpawnDelay, _maxSpawnDelay));
         }
     }
