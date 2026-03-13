@@ -26,14 +26,12 @@ public class HealthHandler : MonoBehaviour, IDamageable
     {
         health -= amount;
 
-        if (TryGetComponent(out Enemy enemy))
+        if (TryGetComponent(out EnemyBase enemy))
         {
             if (health <= 0)
             {
-                //health = _maxHealth;
                 WarfundsHandler.Instance.ReceiveWarfunds(_enemyDeathReward);
                 enemy.Die();
-                //enemy.ResetEnemy();
             }
         }
         else
