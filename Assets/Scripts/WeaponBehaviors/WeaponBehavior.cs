@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class WeaponBehavior : MonoBehaviour
@@ -8,6 +9,7 @@ public abstract class WeaponBehavior : MonoBehaviour
     [SerializeField] protected int _ammoDepletionCount = 10;
     [SerializeField] protected float _lowAmmoIndicator = 0.25f;
     [SerializeField] protected ParticleSystem _smokePFX;
+    [SerializeField] protected GameObject _muzzlePFX;
     private bool _isSmokePlaying;
 
     [Header("Warfund Costs")]
@@ -21,6 +23,8 @@ public abstract class WeaponBehavior : MonoBehaviour
     protected float _damageTimer = 0f;
     protected Collider _currentTarget;
     protected int _enemiesInRange = 0;
+    [SerializeField] protected GameObject _selfDestructPFX;
+    private bool _isDestroying;
 
     public bool isActive;
 
@@ -52,8 +56,11 @@ public abstract class WeaponBehavior : MonoBehaviour
 
     private void AmmoTracking()
     {
+        if (_isDestroying) return;
+
         if (_currentAmmo <= 0)
         {
+            _isDestroying = true;
             isActive = false;
             SendSelfDestructCost(_selfDestructCost);
             DestroyWeapon();
@@ -117,7 +124,6 @@ public abstract class WeaponBehavior : MonoBehaviour
             if (_currentTarget == null || !_currentTarget.gameObject.activeInHierarchy)
             {
                 _currentTarget = other;
-                //_damageTimer = 0f;
                 OnTargetLost();
             }
 
@@ -147,7 +153,6 @@ public abstract class WeaponBehavior : MonoBehaviour
             if (other == _currentTarget)
             {
                 _currentTarget = null;
-                //_damageTimer = 0f;
             }
         }
     }
@@ -188,7 +193,30 @@ public abstract class WeaponBehavior : MonoBehaviour
         {
             transform.parent.GetComponent<PlaceableZone>().ResetZone();
             transform.SetParent(null);
-            Destroy(gameObject);
+            StartCoroutine(DestroyWeaponRoutine());
+        }
+    }
+
+    private IEnumerator DestroyWeaponRoutine()
+    {
+        isActive = false;
+        DisableAllMeshRenderers();
+        _selfDestructPFX.SetActive(true);
+        _muzzlePFX.SetActive(false);
+        _smokePFX.Stop();
+        yield return new WaitForSeconds(3f);
+        Destroy(gameObject);
+    }
+
+    private void DisableAllMeshRenderers()
+    {
+        MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>();
+        if (renderers != null && renderers.Length > 0)
+        {
+            foreach (MeshRenderer renderer in renderers)
+            {
+                renderer.enabled = false;
+            }
         }
     }
 

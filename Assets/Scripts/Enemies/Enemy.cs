@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     private List<Transform> _wayPoints;
     private int _currentPoint = 0;
     private NavMeshAgent _agent;
+    [SerializeField] private float _minSpeed = 1f;
+    [SerializeField] private float _maxSpeed = 8f;
 
     private void Awake()
     {
@@ -20,7 +22,6 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        //_wayPoints = WayPointManager.Instance.SendWayPoints();
         if (_wayPoints == null || _wayPoints.Count == 0)
         {
             Debug.LogError("Waypoints are not set or empty");
@@ -30,6 +31,7 @@ public class Enemy : MonoBehaviour
         if (_agent != null)
         {
             _agent.destination = _wayPoints[_currentPoint].position;
+            _agent.speed = Random.Range(_minSpeed, _maxSpeed);
         }
     }
 

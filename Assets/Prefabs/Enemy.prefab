@@ -71,8 +71,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172242138c281b142a946668beaee654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 2
-  _minHealth: 3
+  _maxHealth: 5
+  _minHealth: 2
   _currentHealth: 0
   _enemyDeathReward: 200
   _canRandomizeHealth: 1
@@ -88,6 +88,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0369d3b94b05ec84bb137c62a63a4bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minSpeed: 2.5
+  _maxSpeed: 5.5
 --- !u!195 &6299215632726369027
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -109,7 +111,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!1001 &8720758238280698451
 PrefabInstance:
   m_ObjectHideFlags: 0
