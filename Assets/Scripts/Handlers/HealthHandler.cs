@@ -30,9 +30,10 @@ public class HealthHandler : MonoBehaviour, IDamageable
         {
             if (health <= 0)
             {
-                health = _maxHealth;
+                //health = _maxHealth;
                 WarfundsHandler.Instance.ReceiveWarfunds(_enemyDeathReward);
-                enemy.ResetEnemy();
+                enemy.Die();
+                //enemy.ResetEnemy();
             }
         }
         else

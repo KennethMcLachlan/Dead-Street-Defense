@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentAmmo: 0
-  _maxAmmo: 40
+  _maxAmmo: 150
   _ammoDepletionCount: 10
   _lowAmmoIndicator: 0.25
   _smokePFX: {fileID: 7883940828132503978}

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Pool;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
@@ -13,11 +15,24 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent _agent;
     [SerializeField] private float _minSpeed = 1f;
     [SerializeField] private float _maxSpeed = 8f;
+    private float _currentSpeed;
+
+    [Header("Death")]
+    [SerializeField] private Material _dissolveMaterial;
+    [SerializeField] private float _dissolveDuration = 2f;
+    [SerializeField] private float _dissolveDelay = 0.5f;
+    private SkinnedMeshRenderer _skinnedMeshRenderer;
+    private Animator _animator;
+    private Material _originalMaterial;
+    private bool _isDying;
 
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
         _wayPoints = WayPointManager.Instance.SendWayPoints();
+        _animator = GetComponentInChildren<Animator>();
+        _skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        _originalMaterial = _skinnedMeshRenderer.material;
     }
 
     void Start()
@@ -31,7 +46,8 @@ public class Enemy : MonoBehaviour
         if (_agent != null)
         {
             _agent.destination = _wayPoints[_currentPoint].position;
-            _agent.speed = Random.Range(_minSpeed, _maxSpeed);
+            _currentSpeed = Random.Range(_minSpeed, _maxSpeed);
+            _agent.speed = _currentSpeed;
         }
     }
 
@@ -50,6 +66,35 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void Die()
+    {
+        if (_isDying) return;
+
+        _isDying = true;
+        _agent.speed = 0f;
+        _animator.SetTrigger("Death");
+        StartCoroutine(DissolveRoutine());
+    }
+
+    private IEnumerator DissolveRoutine()
+    {
+        yield return new WaitForSeconds(_dissolveDelay);
+
+        _skinnedMeshRenderer.material = _dissolveMaterial;
+
+        float elapsed = 0f;
+
+        while (elapsed < _dissolveDuration)
+        {
+            elapsed += Time.deltaTime;
+            float dissolveValue = Mathf.Clamp01(elapsed / _dissolveDuration);
+            _skinnedMeshRenderer.material.SetFloat("_Dissolve", dissolveValue);
+            yield return null;
+        }
+
+        ResetEnemy();
+    }
+
     //Object Pooling Methods
     public void SetPool(ObjectPool<GameObject> pool)
     {
@@ -58,7 +103,11 @@ public class Enemy : MonoBehaviour
 
     public void ResetEnemy()
     {
+        _isDying = false;
+        _skinnedMeshRenderer.material = _originalMaterial;
         _currentPoint = 0;
+        _currentSpeed = Random.Range(_minSpeed, _maxSpeed);
+        _agent.speed = _currentSpeed;
         GetComponent<HealthHandler>().ResetHealth();
         _enemyPool.Release(gameObject);
         WaveManager.Instance.OnEnemyReturnedToPool();
@@ -70,6 +119,8 @@ public class Enemy : MonoBehaviour
         gameObject.SetActive(false);
         transform.position = SpawnManager.Instance._spawnPoint.position;
         gameObject.SetActive(true);
+        _currentSpeed = Random.Range(_minSpeed, _maxSpeed);
+        _agent.speed = _currentSpeed;
         _agent.SetDestination(_wayPoints[_currentPoint].position);
     }
     
