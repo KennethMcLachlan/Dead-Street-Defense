@@ -6,6 +6,7 @@ public class GatlingBehavior : WeaponBehavior
     [SerializeField] private float _rotationSpeed = 90f;
     [SerializeField] private float _damageRate = 1f;
     private GameObject _muzzleFlash;
+    [SerializeField] private AudioSource _gunFireSFX;
 
 
     protected override void Start()
@@ -16,6 +17,7 @@ public class GatlingBehavior : WeaponBehavior
         if (_muzzleFlash != null)
         {
             _muzzleFlash.SetActive(false);
+            _gunFireSFX.Stop();
         }
         else
         {
@@ -29,6 +31,7 @@ public class GatlingBehavior : WeaponBehavior
         if (_muzzleFlash != null)
         {
             _muzzleFlash.SetActive(false);
+            _gunFireSFX.Stop();
         }
     }
 
@@ -38,18 +41,25 @@ public class GatlingBehavior : WeaponBehavior
         if (_enemiesInRange <= 0 && _muzzleFlash.activeSelf)
         {
             _muzzleFlash.SetActive(false);
+            _gunFireSFX.Stop();
         }
     }
 
     protected override void OnFire()
     {
+        if (!_gunFireSFX.isPlaying)
+        {
+            _gunFireSFX.Play();
+        }
         _muzzleFlash.SetActive(true);
+
         RotateTowardsTarget(transform.GetChild(0), _rotationSpeed);
     }
 
     protected override void OnTargetLost()
     {
         _muzzleFlash.SetActive(false);
+        _gunFireSFX.Stop();
     }
 
     protected override float GetFireRate()

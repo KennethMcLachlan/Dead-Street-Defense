@@ -200,6 +200,7 @@ public abstract class WeaponBehavior : MonoBehaviour
         isActive = false;
         DisableAllMeshRenderers();
         _selfDestructPFX.SetActive(true);
+        AudioManager.Instance.PlayExplosionSFX();
         _muzzlePFX.SetActive(false);
         _smokePFX.Stop();
         yield return new WaitForSeconds(3f);

@@ -9,6 +9,7 @@ public class MissileExplosionBehavior : MonoBehaviour
     [SerializeField] private SphereCollider _collider;
     [SerializeField] private float _collisionTime = 0.5f;
     [SerializeField] private ParticleSystem _particleSystem;
+    [SerializeField] private AudioSource _explosionSFX;
     private ObjectPool<GameObject> _pool;
        
 
@@ -25,6 +26,7 @@ public class MissileExplosionBehavior : MonoBehaviour
         {
             _particleSystem.Stop();
             _particleSystem.Play();
+            _explosionSFX.Play();
         }
     
         StartCoroutine(ReturnToPoolRoutine());
