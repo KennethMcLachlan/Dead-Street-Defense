@@ -191,8 +191,6 @@ public abstract class WeaponBehavior : MonoBehaviour
     {
         if (transform.parent != null)
         {
-            transform.parent.GetComponent<PlaceableZone>().ResetZone();
-            transform.SetParent(null);
             StartCoroutine(DestroyWeaponRoutine());
         }
     }
@@ -205,7 +203,17 @@ public abstract class WeaponBehavior : MonoBehaviour
         _muzzlePFX.SetActive(false);
         _smokePFX.Stop();
         yield return new WaitForSeconds(3f);
-        Destroy(gameObject);
+
+        if (transform.parent != null)
+        {
+            PlaceableZone zone = transform.parent.GetComponent<PlaceableZone>();
+            if (zone != null)
+            {
+                zone.ResetZone();
+                transform.SetParent(null);
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void DisableAllMeshRenderers()
