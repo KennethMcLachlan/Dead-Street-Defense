@@ -31,6 +31,8 @@ public class WaveManager : MonoBehaviour
         if (_currentWave >= _totalWaves)
         {
             Debug.Log("All waves completed");
+            UIManager.Instance.EngageWinGame();
+            // Add SFX
             yield break;
         }
 
@@ -58,7 +60,7 @@ public class WaveManager : MonoBehaviour
 
         for (int i= 0; i < enemiesToSpawn; i++)
         {
-            SpawnManager.Instance.SpawnEnemy(_currentWave >= 0);
+            SpawnManager.Instance.SpawnEnemy(_currentWave >= 4);
             yield return new WaitForSeconds(Random.Range(_minSpawnDelay, _maxSpawnDelay));
         }
     }

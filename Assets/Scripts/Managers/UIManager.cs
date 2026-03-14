@@ -59,6 +59,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _restartWindow;
     [SerializeField] private GameObject _gameOver;
     [SerializeField] private GameObject _notEnoughFunds;
+    [SerializeField] private GameObject _gameWon;
 
     [Header("Other")]
     [SerializeField] private GameObject _player;
@@ -194,6 +195,11 @@ public class UIManager : MonoBehaviour
     public void EngageGameOver()
     {
         _gameOver.SetActive(true);
+    }
+
+    public void EngageWinGame()
+    {
+        _gameWon.SetActive(true);
     }
 
     //Pause/Restart
