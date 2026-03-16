@@ -219,6 +219,8 @@ public class UIManager : MonoBehaviour
         _restartWindow.SetActive(false);
         _gameOver.SetActive(false);
         CloseUpgradeWindows();
+        _fastForward.SetActive(false);
+        _play.SetActive(true);
         Time.timeScale = 1f;
     }
 
@@ -338,6 +340,8 @@ public class UIManager : MonoBehaviour
         _upgradeGatling.SetActive(false);
         _upgradeMissile.SetActive(false);
         _dismantleWeapon.SetActive(false);
+        _fastForward.SetActive(false);
+        _play.SetActive(true);
     }
 
     public bool IsUpgradePopUpOpen()
