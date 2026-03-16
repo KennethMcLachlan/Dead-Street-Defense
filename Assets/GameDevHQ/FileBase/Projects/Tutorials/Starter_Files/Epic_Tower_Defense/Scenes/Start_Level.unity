@@ -2151,6 +2151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f739a5db67af6a4db51c5c0765620f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _versionText: {fileID: 1367709903}
 --- !u!1001 &169380569
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12203,7 +12204,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: v0.1
+  m_Text: 'v1.0
+
+'
 --- !u!222 &1367709904
 CanvasRenderer:
   m_ObjectHideFlags: 0
