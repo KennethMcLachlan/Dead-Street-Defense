@@ -39,6 +39,7 @@ public class HealthHandler : MonoBehaviour, IDamageable
             UIManager.Instance.UpdateLives(health);
             if (health <= 0)
             {
+                AudioManager.Instance.LoseGameSFX();
                 PlaybackHandler.Instance.GameOver();
             }
             else if (health <= 5)

@@ -139,6 +139,7 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator NotEnoughFundsRoutine()
     {
+        AudioManager.Instance.PlayNegativeSFX();
         _notEnoughFunds.SetActive(true);
         yield return new WaitForSeconds(2f);
         _notEnoughFunds.SetActive(false);

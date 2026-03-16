@@ -51,7 +51,10 @@ public abstract class EnemyBase : MonoBehaviour
                 ResetEnemy();
             }
 
-            _agent.destination = _waypoints[_currentPoint].position;
+            if (_agent != null)
+            {
+                _agent.destination = _waypoints[_currentPoint].position;
+            }
         }
     }
 

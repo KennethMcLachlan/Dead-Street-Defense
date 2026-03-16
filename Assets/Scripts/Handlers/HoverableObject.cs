@@ -24,8 +24,6 @@ public class HoverableObject : MonoBehaviour, IHoverable
 
     public void OnHoverExit()
     {
-        _colorChange?.RestorePreviousColor();
-
         if (_colorChange != null)
         {
             IsHovering = false;
@@ -33,7 +31,6 @@ public class HoverableObject : MonoBehaviour, IHoverable
             {
                 _colorChange.RestorePreviousColor();
             }
-
         }
     }
 }

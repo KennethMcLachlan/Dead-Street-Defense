@@ -30,7 +30,9 @@ public class WaveManager : MonoBehaviour
     {
         if (_currentWave >= _totalWaves)
         {
-            Debug.Log("All waves completed");
+            yield return new WaitForSeconds(2f);
+            Time.timeScale = 0.0f;
+            AudioManager.Instance.YouWinSFX();
             UIManager.Instance.EngageWinGame();
             // Add SFX
             yield break;
@@ -38,6 +40,7 @@ public class WaveManager : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
+        AudioManager.Instance.WaveStartSFX();
         UIManager.Instance.EngageWaveInfo();
         yield return new WaitForSeconds(5f);
         UIManager.Instance.SetWaveStartText();

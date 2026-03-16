@@ -33,4 +33,29 @@ public class AudioManager : MonoBehaviour
         _explosionSFX.Play();
     }
 
+    public void PlayPositiveSFX()
+    {
+        _yesSFX.Play();
+    }
+
+    public void PlayNegativeSFX()
+    {
+        _noSFX.Play();
+        Debug.Log("NegativeNotif Just Played");
+    }
+
+    public void LoseGameSFX()
+    {
+        _gameOverSFX.Play();
+    }
+
+    public void WaveStartSFX()
+    {
+        _waveStartSFX.Play();
+    }
+
+    public void YouWinSFX()
+    {
+        _youWinSFX.Play();
+    }
 }

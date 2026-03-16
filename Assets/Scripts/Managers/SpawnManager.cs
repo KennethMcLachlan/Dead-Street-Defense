@@ -100,11 +100,7 @@ public class SpawnManager : MonoBehaviour
 
     private void OnGetEnemy(GameObject gameObject)
     {
-        //Enemy enemy = gameObject.GetComponent<EnemyBase>();
-        //enemy.ActivateEnemy();
-
         gameObject.GetComponent<EnemyBase>().ActivateEnemy();
-        //gameObject.SetActive(true);
     }
 
     private void OnDestroyEnemy(GameObject gameObject)

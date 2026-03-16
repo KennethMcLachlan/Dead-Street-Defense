@@ -57,6 +57,7 @@ public class WarfundsHandler : MonoBehaviour
 
     public void WarfundPenalty(int amount)
     {
+        AudioManager.Instance.PlayNegativeSFX();
         _warfunds -= amount;
         UpdateUI();
     }
@@ -65,6 +66,7 @@ public class WarfundsHandler : MonoBehaviour
     {
         if (_warfunds >= _gatlingGunCost)
         {
+            AudioManager.Instance.PlayPositiveSFX();
             _warfunds -= _gatlingGunCost;
             SpawnManager.Instance.SpawnGatling();
             UpdateUI();
@@ -75,24 +77,9 @@ public class WarfundsHandler : MonoBehaviour
         }
     }
 
-    public void UpgradeGatlingGun(int amount)
-    {
-        //_gatlingGunUpgradeCost = amount;
-        //if (_warfunds >= _gatlingGunUpgradeCost)
-        //{
-        //    _warfunds -= _gatlingGunUpgradeCost;
-        //    UpdateUI();
-        //}
-        //else
-        //{
-        //    //Cant afford upgrade
-        //    Debug.Log("Can't afford Gatling Gun Upgrade!");
-        //    //Make Popup or SFX to indicate insufficient funds
-        //}
-    }
-
     public void DismantleGatlingGun()
     {
+        AudioManager.Instance.PlayPositiveSFX();
         _warfunds += _gatlingGunCost / 2;
         UpdateUI();
     }
@@ -101,21 +88,20 @@ public class WarfundsHandler : MonoBehaviour
     {
         if (_warfunds >= _missileLauncherCost)
         {
+            AudioManager.Instance.PlayPositiveSFX();
             _warfunds -= _missileLauncherCost;
             SpawnManager.Instance.SpawnMissileTurret();
             UpdateUI();
         }
         else
         {
-            //Cant afford weapon
             UIManager.Instance.DisplayNotEnoughFunds();
-            Debug.Log("Can't afford Missile Launcher!");
-            //Make Popup or SFX to indicate insufficient funds
         }
     }
 
     public void DismantleMissileLauncher()
     {
+        AudioManager.Instance.PlayPositiveSFX();
         _warfunds += _missileLauncherCost / 2;
         UpdateUI();
     }

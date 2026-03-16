@@ -103,10 +103,10 @@ public class PlayerInputControls : MonoBehaviour
     #region Action Started & Canceled
     private void Action_started(InputAction.CallbackContext obj)
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
+        //if (EventSystem.current.IsPointerOverGameObject())
+        //{
+        //    return;
+        //}
 
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
