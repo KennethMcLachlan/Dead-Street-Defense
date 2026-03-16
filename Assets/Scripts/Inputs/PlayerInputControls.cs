@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerInputControls : MonoBehaviour
@@ -102,6 +103,11 @@ public class PlayerInputControls : MonoBehaviour
     #region Action Started & Canceled
     private void Action_started(InputAction.CallbackContext obj)
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         if (Physics.Raycast(ray, out RaycastHit hit))
@@ -113,11 +119,11 @@ public class PlayerInputControls : MonoBehaviour
                 _currentDraggable.BeginDrag();
             }
 
-            IClickable clickable = hit.collider.GetComponent<IClickable>();
-            if (clickable != null)
-            {
-                clickable.OnClick();
-            }
+            //IClickable clickable = hit.collider.GetComponent<IClickable>();
+            //if (clickable != null)
+            //{
+            //    clickable.OnClick();
+            //}
         }
     }
 

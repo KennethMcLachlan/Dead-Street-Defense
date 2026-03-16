@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class HoverManager : MonoBehaviour
@@ -13,6 +14,16 @@ public class HoverManager : MonoBehaviour
 
     private void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            if (_currentHoverable != null && (_currentHoverable as UnityEngine.Object) != null)
+            {
+                _currentHoverable.OnHoverExit();
+                _currentHoverable = null;
+            }
+            return;
+        }
+
         if (UIManager.Instance.IsUpgradePopUpOpen())
         {
             if (_currentHoverable != null && (_currentHoverable as UnityEngine.Object) != null)
