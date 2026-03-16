@@ -334,7 +334,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: d26477470930c5746befcc0453f67e34, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -557,7 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172242138c281b142a946668beaee654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  _maxHealth: 60
   _minHealth: 2
   _currentHealth: 0
   _enemyDeathReward: 1000
@@ -577,6 +577,7 @@ MonoBehaviour:
   _dissolveMaterial: {fileID: 2100000, guid: f5199a52c96e8074c8b1e5af179d7681, type: 2}
   _dissolveDuration: 5
   _dissolveDelay: 1
+  _collider: {fileID: 211467035594816220}
   _speed: 2
 --- !u!136 &211467035594816220
 CapsuleCollider:

@@ -3275,7 +3275,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: aa674882c1e7d2f42aa4134c2999fc2f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3998,7 +3998,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &487465906
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8066,7 +8066,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &931347441
 Transform:
   m_ObjectHideFlags: 0
@@ -8095,7 +8095,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 97848bb34bc8df448b4d1515b4f4fb77, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.4
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -11240,7 +11240,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 1247f6fd90581d04086ebc7393f00e05, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -11353,10 +11353,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172242138c281b142a946668beaee654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 1
-  _minHealth: 3
+  _maxHealth: 20
+  _minHealth: 0
   _currentHealth: 20
-  _enemyDeathReward: 100
+  _enemyDeathReward: 25
   _canRandomizeHealth: 0
 --- !u!4 &1299022485
 Transform:
@@ -14403,7 +14403,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1586007435
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15608,10 +15608,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafdd5983de0388418de500c45e13c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _totalWaves: 2
+  _totalWaves: 10
   _firstWaveCount: 5
   _timeBetweenWaves: 5
-  _enemyCountMultiplier: 1.2
+  _enemyCountMultiplier: 1.25
   _minSpawnDelay: 0.15
   _maxSpawnDelay: 3
 --- !u!1 &1677299258
@@ -17237,7 +17237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1860635790}
   m_Layer: 0
-  m_Name: PlaceableAreas
+  m_Name: '***PlaceableAreas***'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18854,7 +18854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047a59fbae43fca4997817f5e1dc9c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _warfunds: 1000
+  _warfunds: 500
   _gatlingGunCost: 200
   _missileLauncherCost: 500
 --- !u!1 &2031534178
@@ -19759,7 +19759,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2128074888
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19776,7 +19776,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 120, y: -146}
+  m_AnchoredPosition: {x: 118.9, y: -146}
   m_SizeDelta: {x: 207.41, y: 85.78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2128074889

@@ -88,6 +88,11 @@ public abstract class WeaponBehavior : MonoBehaviour
     #region [Enemy Tracking]
     private void TrackEnemiesInRange()
     {
+        if (_currentTarget != null && !_currentTarget.enabled)
+        {
+            _currentTarget = null;
+        }
+
         SphereCollider sphereCollider = GetComponent<SphereCollider>();
         Collider[] hits = Physics.OverlapSphere(transform.position, sphereCollider.radius);
         _enemiesInRange = 0;

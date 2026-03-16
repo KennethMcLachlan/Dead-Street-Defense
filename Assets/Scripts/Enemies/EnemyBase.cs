@@ -18,6 +18,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected Material _dissolveMaterial;
     [SerializeField] protected float _dissolveDuration = 2f;
     [SerializeField] protected float _dissolveDelay = 1f;
+    [SerializeField] protected CapsuleCollider _collider;
     protected Material _originalMaterial;
 
     protected virtual void Awake()
@@ -49,9 +50,10 @@ public abstract class EnemyBase : MonoBehaviour
             {
                 _currentPoint = 0;
                 ResetEnemy();
+                return;
             }
 
-            if (_agent != null)
+            if (_agent.isActiveAndEnabled && _agent.isOnNavMesh)
             {
                 _agent.destination = _waypoints[_currentPoint].position;
             }
@@ -63,6 +65,7 @@ public abstract class EnemyBase : MonoBehaviour
         if (_isDying) return;
 
         _isDying = true;
+        _collider.enabled = false;
         _agent.speed = 0f;
         _animator.SetTrigger("Death");
         StartCoroutine(DissolveRoutine());
@@ -89,6 +92,7 @@ public abstract class EnemyBase : MonoBehaviour
     public virtual void ResetEnemy()
     {
         _isDying = false;
+        _collider.enabled = true;
         _skinnedMeshRenderer.material = _originalMaterial;
         _currentPoint = 0;
         GetComponent<HealthHandler>().ResetHealth();

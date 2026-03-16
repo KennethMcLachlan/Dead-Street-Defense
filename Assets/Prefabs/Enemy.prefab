@@ -2284,9 +2284,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9028795541891329613}
-  - component: {fileID: 7288324886327315708}
   - component: {fileID: 2827666037331716417}
   - component: {fileID: 2161400696397138403}
+  - component: {fileID: 7288324886327315708}
   - component: {fileID: 6299215632726369027}
   m_Layer: 6
   m_Name: Enemy
@@ -2312,6 +2312,41 @@ Transform:
   - {fileID: 2700747763060622057}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2827666037331716417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2794057808471717902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172242138c281b142a946668beaee654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 5
+  _minHealth: 2
+  _currentHealth: 0
+  _enemyDeathReward: 100
+  _canRandomizeHealth: 1
+--- !u!114 &2161400696397138403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2794057808471717902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0369d3b94b05ec84bb137c62a63a4bdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dissolveMaterial: {fileID: 2100000, guid: 1a50a9ace93fd614db63694d201e262b, type: 2}
+  _dissolveDuration: 3
+  _dissolveDelay: 1
+  _collider: {fileID: 7288324886327315708}
+  _minSpeed: 2.5
+  _maxSpeed: 5.5
 --- !u!136 &7288324886327315708
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2335,40 +2370,6 @@ CapsuleCollider:
   m_Height: 1.9824657
   m_Direction: 1
   m_Center: {x: 0, y: 0.9477744, z: 0}
---- !u!114 &2827666037331716417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2794057808471717902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172242138c281b142a946668beaee654, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 5
-  _minHealth: 2
-  _currentHealth: 0
-  _enemyDeathReward: 200
-  _canRandomizeHealth: 1
---- !u!114 &2161400696397138403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2794057808471717902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0369d3b94b05ec84bb137c62a63a4bdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _minSpeed: 2.5
-  _maxSpeed: 5.5
-  _dissolveMaterial: {fileID: 2100000, guid: 1a50a9ace93fd614db63694d201e262b, type: 2}
-  _dissolveDuration: 3
-  _dissolveDelay: 1
 --- !u!195 &6299215632726369027
 NavMeshAgent:
   m_ObjectHideFlags: 0
