@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerHealthTrigger : MonoBehaviour
 {
-
     [SerializeField] private GameObject _player;
 
     private void OnTriggerEnter(Collider other)

@@ -41,7 +41,6 @@ public class AudioManager : MonoBehaviour
     public void PlayNegativeSFX()
     {
         _noSFX.Play();
-        Debug.Log("NegativeNotif Just Played");
     }
 
     public void LoseGameSFX()

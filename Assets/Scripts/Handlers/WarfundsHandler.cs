@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class WarfundsHandler : MonoBehaviour
 {
+    #region [Instance & Variables]
     private static WarfundsHandler _instance;
     public static WarfundsHandler Instance
     {
@@ -25,24 +26,26 @@ public class WarfundsHandler : MonoBehaviour
     [SerializeField] private int _gatlingGunCost = 200;
     private int _gatlingGunUpgradeCost;
     [SerializeField] private int _missileLauncherCost = 500;
+    #endregion
 
+    #region [Awake & Start]
     private void Awake()
     {
         _instance = this;
     }
 
-
     void Start()
     {
-
         UpdateUI();
     }
+    #endregion
 
-    void Update()
+    public void UpdateUI()
     {
-        
+        UIManager.Instance.UpdateWarfunds(_warfunds);
     }
 
+    #region [Warfund Spendatures]
     public void ReceiveWarfunds(int amount)
     {
         _warfunds += amount;
@@ -61,7 +64,9 @@ public class WarfundsHandler : MonoBehaviour
         _warfunds -= amount;
         UpdateUI();
     }
+    #endregion
 
+    #region [Purchase & Dismantle Weapons]
     public void PurchaseGatlingGun()
     {
         if (_warfunds >= _gatlingGunCost)
@@ -105,10 +110,7 @@ public class WarfundsHandler : MonoBehaviour
         _warfunds += _missileLauncherCost / 2;
         UpdateUI();
     }
+    #endregion
 
-    public void UpdateUI()
-    {
-        UIManager.Instance.UpdateWarfunds(_warfunds);
-    }
 
 }

@@ -48,5 +48,4 @@ public class PlaybackHandler : MonoBehaviour
         Time.timeScale = 0f;
         UIManager.Instance.EngageGameOver();
     }
-
 }

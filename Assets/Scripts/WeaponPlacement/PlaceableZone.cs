@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlaceableZone : MonoBehaviour
 {
+    [SerializeField] private BoxCollider _boxCollider;
+    [SerializeField] private ParticleSystem _psGlow;
     [SerializeField] private float _emissionStrength = 2.0f;
     public bool isInPlacementZone;
     private bool _isPlaced;
     private bool _isPositioned;
     private bool _isOccupied;
-    [SerializeField] private BoxCollider _boxCollider;
-    [SerializeField] private ParticleSystem _psGlow;
 
     private void Update()
     {

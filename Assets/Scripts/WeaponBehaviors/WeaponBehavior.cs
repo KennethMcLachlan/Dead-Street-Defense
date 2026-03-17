@@ -3,6 +3,7 @@ using UnityEngine;
 
 public abstract class WeaponBehavior : MonoBehaviour
 {
+    #region [Variables & References]
     [Header("Ammunition")]
     [SerializeField] protected int _currentAmmo;
     [SerializeField] protected int _maxAmmo;
@@ -27,7 +28,9 @@ public abstract class WeaponBehavior : MonoBehaviour
     private bool _isDestroying;
 
     public bool isActive;
+    #endregion
 
+    #region [Start | OnEnable | Update]
     protected virtual void Start()
     {
         _currentAmmo = _maxAmmo;
@@ -53,7 +56,9 @@ public abstract class WeaponBehavior : MonoBehaviour
             TrackEnemiesInRange();
         }
     }
+    #endregion
 
+    #region [Ammo Tracking]
     private void AmmoTracking()
     {
         if (_isDestroying) return;
@@ -84,6 +89,7 @@ public abstract class WeaponBehavior : MonoBehaviour
             }
         }
     }
+    #endregion
 
     #region [Enemy Tracking]
     private void TrackEnemiesInRange()

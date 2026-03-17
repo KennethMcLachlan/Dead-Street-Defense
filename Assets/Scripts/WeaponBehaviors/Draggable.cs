@@ -9,10 +9,9 @@ public class Draggable : MonoBehaviour
     private ColorChange _colorChange;
     private HoverableObject _hoverable;
 
+    private bool _justSpawned = true;
     public bool isDragging;
     private bool _isInZone;
-
-    private bool _justSpawned = true;
 
     private void Awake()
     {

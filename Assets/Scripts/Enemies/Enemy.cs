@@ -1,9 +1,4 @@
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Pool;
-using System.Collections;
 
 public class Enemy : EnemyBase
 {

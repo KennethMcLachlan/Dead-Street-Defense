@@ -19,12 +19,6 @@ public class UIManager : MonoBehaviour
             return _instance;
         }
     }
-    
-    [Header("HUD Buttons")]
-    [SerializeField] private Button _restartButton;
-    [SerializeField] private Button _pauseButton;
-    [SerializeField] private Button _playButton;
-    [SerializeField] private Button _fastForwardButton;
 
     [Header("Upgrades")]
     [SerializeField] private GameObject _upgradeGatling;
@@ -33,12 +27,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text _upgradeMissileCost;
     [SerializeField] private GameObject _dismantleWeapon;
     [SerializeField] private Text _dismantleValue;
-
-    [Header("Weapon Buttons")]
-    [SerializeField] private Button _gatlingButton;
-    [SerializeField] private Button _doubleGatling;
-    [SerializeField] private Button _missileTurret;
-    [SerializeField] private Button _plasmaTurret;
 
     [Header("Text & Numbers")]
     [SerializeField] private Text _warfundsNumber;
@@ -50,6 +38,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _pause;
     [SerializeField] private GameObject _play;
     [SerializeField] private GameObject _fastForward;
+    [SerializeField] private Button _fastForwardButton;
 
     [Header("Pop-Ups")]
     [SerializeField] private GameObject _waveInfo;
@@ -68,9 +57,9 @@ public class UIManager : MonoBehaviour
     private MissileLauncherBehavior _selectedMissileLauncher;
     private WeaponBehavior _selectedWeapon;
     private List<GameObject> _disabledWeapons = new List<GameObject>();
-
     #endregion
 
+    #region [Awake & Start]
     private void Awake()
     {
         _instance = this;
@@ -80,13 +69,9 @@ public class UIManager : MonoBehaviour
     {
         _player.GetComponent<HealthHandler>();
     }
+    #endregion
 
-    //Waves
-    public void UpdateWaveNumber(int amount)
-    {
-        _waveNumber.text = amount.ToString() + "/10";
-    }
-
+    #region [Health]
     //Health
     public void UpdateLives(int amount)
     {
@@ -110,7 +95,9 @@ public class UIManager : MonoBehaviour
         _statusText.color = Color.red;
         _statusText.text = "Critical";
     }
+    #endregion
 
+    #region [Warfunds]
     //Warfunds
     public void UpdateWarfunds(int amount)
     {
@@ -144,7 +131,9 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         _notEnoughFunds.SetActive(false);
     }
+    #endregion
 
+    #region [Playback]
     //Playback
     public void UpdateToNaturalSpeed()
     {
@@ -171,10 +160,14 @@ public class UIManager : MonoBehaviour
         _fastForwardButton.interactable = false;
         EngagePauseMenu();
     }
+    #endregion
 
-    //Pop-ups
+    #region [Waves]
+    public void UpdateWaveNumber(int amount)
+    {
+        _waveNumber.text = amount.ToString() + "/10";
+    }
 
-    //Waves
     public void EngageWaveInfo()
     {
         _waveInfo.SetActive(true);
@@ -191,8 +184,9 @@ public class UIManager : MonoBehaviour
         _prepareText.SetActive(true);
         _waveInfo.SetActive(false);
     }
+    #endregion
 
-    //Player Death | Game Over
+    #region [Player Death & Game Over]
     public void EngageGameOver()
     {
         _gameOver.SetActive(true);
@@ -202,8 +196,9 @@ public class UIManager : MonoBehaviour
     {
         _gameWon.SetActive(true);
     }
+    #endregion
 
-    //Pause/Restart
+    #region [Pause & Restart]
     public void EngagePauseMenu()
     {
         _restartWindow.SetActive(true);
@@ -223,8 +218,9 @@ public class UIManager : MonoBehaviour
         _play.SetActive(true);
         Time.timeScale = 1f;
     }
+    #endregion
 
-    //Weapon Upgrades
+    #region [Weapon Upgrades]
     public void ShowUpgradePopUp(WeaponType weaponType, GatlingBehavior gatlingGun = null, MissileLauncherBehavior missileLauncher = null)
     {
         _selectedGatlingGun = gatlingGun;
@@ -318,8 +314,9 @@ public class UIManager : MonoBehaviour
         CloseUpgradeWindows();
         EnableAllWeaponInteraction();
     }
+    #endregion
 
-    //Dismantle
+    #region [Dismantle]
     public void OnDismantleButtonPressed()
     {
         if (_selectedWeapon != null)
@@ -343,10 +340,10 @@ public class UIManager : MonoBehaviour
         _fastForward.SetActive(false);
         _play.SetActive(true);
     }
+    #endregion
 
     public bool IsUpgradePopUpOpen()
     {
         return _upgrade.activeSelf;
     }
-
 }

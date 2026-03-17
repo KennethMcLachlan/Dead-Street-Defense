@@ -6,21 +6,24 @@ using UnityEngine.Pool;
 
 public abstract class EnemyBase : MonoBehaviour
 {
+    #region [Variables]
     protected ObjectPool<GameObject> _enemyPool;
     protected List<Transform> _waypoints;
     protected int _currentPoint = 0;
     protected NavMeshAgent _agent;
-    protected Animator _animator;
-    protected SkinnedMeshRenderer _skinnedMeshRenderer;
-    protected bool _isDying;
 
     [Header("Death")]
     [SerializeField] protected Material _dissolveMaterial;
     [SerializeField] protected float _dissolveDuration = 2f;
     [SerializeField] protected float _dissolveDelay = 1f;
     [SerializeField] protected CapsuleCollider _collider;
+    protected SkinnedMeshRenderer _skinnedMeshRenderer;
     protected Material _originalMaterial;
+    protected Animator _animator;
+    protected bool _isDying;
+    #endregion
 
+    #region [Awake & Start]
     protected virtual void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -40,7 +43,9 @@ public abstract class EnemyBase : MonoBehaviour
 
         _agent.destination = _waypoints[_currentPoint].position;
     }
+    #endregion
 
+    #region [Navigation]
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("WayPoint"))
@@ -59,7 +64,9 @@ public abstract class EnemyBase : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region [Life & Death]
     public void Die()
     {
         if (_isDying) return;
@@ -113,4 +120,5 @@ public abstract class EnemyBase : MonoBehaviour
     {
         _enemyPool = pool;
     }
+    #endregion
 }

@@ -32,7 +32,6 @@ public class MissileLauncherBehavior : WeaponBehavior
 
     protected override void OnTargetLost()
     {
-        //_muzzleFlash.Stop();
     }
 
     protected override void OnDamageDealt(Collider target)

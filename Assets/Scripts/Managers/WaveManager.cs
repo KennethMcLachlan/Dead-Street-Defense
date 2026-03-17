@@ -3,7 +3,19 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    public static WaveManager Instance;
+    #region [Variables & References]
+    private static WaveManager _instance;
+    public static WaveManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                Debug.LogError("Wave Manager ius null!");
+            }
+            return _instance;
+        }
+    }
 
     [SerializeField] private int _totalWaves = 10;
     [SerializeField] private int _firstWaveCount = 5;
@@ -15,10 +27,11 @@ public class WaveManager : MonoBehaviour
     private int _currentWave = 0;
     private int _enemiesRemainingInWave = 0;
     private bool _waveActive = false;
+    #endregion
 
     private void Awake()
     {
-        Instance = this;
+        _instance = this;
     }
 
     private void Start()

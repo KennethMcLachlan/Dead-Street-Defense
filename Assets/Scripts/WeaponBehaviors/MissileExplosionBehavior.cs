@@ -6,12 +6,11 @@ public class MissileExplosionBehavior : MonoBehaviour
 {
     [SerializeField] private int _explosionDamage = 5;
     [SerializeField] private float _lifetime = 2f;
-    [SerializeField] private SphereCollider _collider;
     [SerializeField] private float _collisionTime = 0.5f;
+    [SerializeField] private SphereCollider _collider;
     [SerializeField] private ParticleSystem _particleSystem;
     [SerializeField] private AudioSource _explosionSFX;
     private ObjectPool<GameObject> _pool;
-       
 
    public void SetPool(ObjectPool<GameObject> pool)
     {

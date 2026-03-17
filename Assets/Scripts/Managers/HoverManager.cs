@@ -16,7 +16,7 @@ public class HoverManager : MonoBehaviour
     {
         if (EventSystem.current.IsPointerOverGameObject())
         {
-            if (_currentHoverable != null && (_currentHoverable as UnityEngine.Object) != null)
+            if (_currentHoverable != null && (_currentHoverable as Object) != null)
             {
                 _currentHoverable.OnHoverExit();
                 _currentHoverable = null;
@@ -26,7 +26,7 @@ public class HoverManager : MonoBehaviour
 
         if (UIManager.Instance.IsUpgradePopUpOpen())
         {
-            if (_currentHoverable != null && (_currentHoverable as UnityEngine.Object) != null)
+            if (_currentHoverable != null && (_currentHoverable as Object) != null)
             {
                 _currentHoverable.OnHoverExit();
                 _currentHoverable = null;
@@ -42,22 +42,26 @@ public class HoverManager : MonoBehaviour
 
             if (hoverTarget != _currentHoverable)
             {
-                if (_currentHoverable != null && (_currentHoverable as UnityEngine.Object) != null)
+                if (_currentHoverable != null && (_currentHoverable as Object) != null)
+                {
                     _currentHoverable.OnHoverExit();
+                }
 
                 _currentHoverable = hoverTarget;
 
-                if (_currentHoverable != null && (_currentHoverable as UnityEngine.Object) != null)
+                if (_currentHoverable != null && (_currentHoverable as Object) != null)
                 {
                     MonoBehaviour hoverBehaviour = _currentHoverable as MonoBehaviour;
                     if (hoverBehaviour != null && hoverBehaviour.enabled)
+                    {
                         _currentHoverable.OnHoverEnter();
+                    }
                 }
             }
         }
         else
         {
-            if (_currentHoverable != null && (_currentHoverable as UnityEngine.Object) != null)
+            if (_currentHoverable != null && (_currentHoverable as Object) != null)
             {
                 _currentHoverable.OnHoverExit();
                 _currentHoverable = null;

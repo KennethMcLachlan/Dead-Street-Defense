@@ -41,6 +41,7 @@ public class ColorChange : MonoBehaviour
         TurnRed();
     }
 
+    #region [Change Color]
     public void TurnRed()
     {
         SetColor(Color.red, ColorState.Red);
@@ -54,9 +55,9 @@ public class ColorChange : MonoBehaviour
     public void TurnBlue()
     {
         _previousState = _currentState;
-
         SetColor(Color.cyan, ColorState.Blue);
     }
+    #endregion
 
     public void RestorePreviousColor()
     {
