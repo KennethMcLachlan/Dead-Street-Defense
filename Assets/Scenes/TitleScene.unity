@@ -592,7 +592,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -1199,6 +1199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f739a5db67af6a4db51c5c0765620f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _versionText: {fileID: 0}
 --- !u!4 &1180101751
 Transform:
   m_ObjectHideFlags: 0

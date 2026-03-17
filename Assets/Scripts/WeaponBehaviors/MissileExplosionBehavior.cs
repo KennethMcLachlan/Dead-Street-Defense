@@ -26,7 +26,11 @@ public class MissileExplosionBehavior : MonoBehaviour
         {
             _particleSystem.Stop();
             _particleSystem.Play();
-            _explosionSFX.Play();
+
+            if (_explosionSFX != null)
+            {
+                _explosionSFX.Play();
+            }
         }
     
         StartCoroutine(ReturnToPoolRoutine());
