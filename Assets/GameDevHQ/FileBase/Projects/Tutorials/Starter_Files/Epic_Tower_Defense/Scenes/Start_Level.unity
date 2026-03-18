@@ -5955,20 +5955,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593855a5ac5a3b348ba8505a70ad3599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _restartButton: {fileID: 0}
-  _pauseButton: {fileID: 0}
-  _playButton: {fileID: 0}
-  _fastForwardButton: {fileID: 557316714}
   _upgradeGatling: {fileID: 1364565713}
   _gatlingUpgradeCost: {fileID: 1872218051}
   _upgradeMissile: {fileID: 46770128}
   _upgradeMissileCost: {fileID: 1574409126}
   _dismantleWeapon: {fileID: 1624499973}
   _dismantleValue: {fileID: 1700177798}
-  _gatlingButton: {fileID: 0}
-  _doubleGatling: {fileID: 0}
-  _missileTurret: {fileID: 0}
-  _plasmaTurret: {fileID: 0}
   _warfundsNumber: {fileID: 2109062355}
   _waveNumber: {fileID: 640746102}
   _livesText: {fileID: 783571177}
@@ -5976,6 +5968,7 @@ MonoBehaviour:
   _pause: {fileID: 1390762800}
   _play: {fileID: 142299666}
   _fastForward: {fileID: 230579418}
+  _fastForwardButton: {fileID: 557316714}
   _waveInfo: {fileID: 517971780}
   _prepareText: {fileID: 1369206046}
   _startText: {fileID: 834260911}
@@ -11357,8 +11350,8 @@ MonoBehaviour:
   _maxHealth: 20
   _minHealth: 0
   _currentHealth: 20
-  _enemyDeathReward: 25
   _canRandomizeHealth: 0
+  _enemyDeathReward: 25
 --- !u!4 &1299022485
 Transform:
   m_ObjectHideFlags: 0
@@ -15616,7 +15609,7 @@ MonoBehaviour:
   _timeBetweenWaves: 5
   _enemyCountMultiplier: 1.25
   _minSpawnDelay: 0.15
-  _maxSpawnDelay: 3
+  _maxSpawnDelay: 2.5
 --- !u!1 &1677299258
 GameObject:
   m_ObjectHideFlags: 0
@@ -18857,7 +18850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047a59fbae43fca4997817f5e1dc9c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _warfunds: 500
+  _warfunds: 10000
   _gatlingGunCost: 200
   _missileLauncherCost: 500
 --- !u!1 &2031534178

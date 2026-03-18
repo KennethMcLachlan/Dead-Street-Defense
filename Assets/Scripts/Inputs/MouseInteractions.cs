@@ -39,7 +39,6 @@ public class MouseInteractions : MonoBehaviour
     {
         if (EventSystem.current.IsPointerOverGameObject())
         {
-            Debug.Log("Pointer over UI - Blocking Raycast!");
             return;
         }
 
