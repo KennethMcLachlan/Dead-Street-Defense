@@ -18916,7 +18916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047a59fbae43fca4997817f5e1dc9c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _warfunds: 10000
+  _warfunds: 500
   _gatlingGunCost: 200
   _missileLauncherCost: 500
 --- !u!1 &2031534178
