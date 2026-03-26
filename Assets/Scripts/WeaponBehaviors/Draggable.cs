@@ -46,13 +46,13 @@ public class Draggable : MonoBehaviour
             {
                 _colorChange.TurnGreen();
             }
-
-            if (!_isInZone)
+            else
             {
                 _colorChange.TurnRed();
 
                 if (PlayerInputControls.Instance._actionButton.action.WasReleasedThisFrame())
                 {
+                    AudioManager.Instance.PlayNegativeSFX();
                     WarfundsHandler.Instance.RefundWeapon(_clickableObject.WeaponType);
                     Destroy(gameObject);
                 }

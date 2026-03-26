@@ -82,5 +82,4 @@ public class GatlingBehavior : WeaponBehavior
     {
         DestroyWeapon();
     }
-
 }
