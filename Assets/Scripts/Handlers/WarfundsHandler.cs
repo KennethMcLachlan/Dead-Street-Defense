@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class WarfundsHandler : MonoBehaviour
@@ -63,6 +64,19 @@ public class WarfundsHandler : MonoBehaviour
         AudioManager.Instance.PlayNegativeSFX();
         _warfunds -= amount;
         UpdateUI();
+    }
+
+    public void RefundWeapon(WeaponType weaponType)
+    {
+        switch (weaponType)
+        {
+            case WeaponType.GatlingGun:
+                ReceiveWarfunds(_gatlingGunCost);
+                break;
+            case WeaponType.MissileLauncher:
+                ReceiveWarfunds(_missileLauncherCost);
+                break;
+        }
     }
     #endregion
 

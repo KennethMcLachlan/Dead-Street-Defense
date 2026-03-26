@@ -8,6 +8,7 @@ public class Draggable : MonoBehaviour
     private LayerMask _groundMask;
     private ColorChange _colorChange;
     private HoverableObject _hoverable;
+    private ClickableObject _clickableObject;
 
     private bool _justSpawned = true;
     public bool isDragging;
@@ -24,6 +25,7 @@ public class Draggable : MonoBehaviour
 
     private void Start()
     {
+        _clickableObject = GetComponent<ClickableObject>();
         _mainCamera = Camera.main;
         _groundMask = LayerMask.GetMask("Ground");
         _colorChange = GetComponent<ColorChange>();
@@ -51,6 +53,7 @@ public class Draggable : MonoBehaviour
 
                 if (PlayerInputControls.Instance._actionButton.action.WasReleasedThisFrame())
                 {
+                    WarfundsHandler.Instance.RefundWeapon(_clickableObject.WeaponType);
                     Destroy(gameObject);
                 }
             }
