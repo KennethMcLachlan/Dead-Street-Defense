@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -46,7 +45,8 @@ public class Draggable : MonoBehaviour
             {
                 _colorChange.TurnGreen();
             }
-            else
+
+            if (!_isInZone)
             {
                 _colorChange.TurnRed();
 
